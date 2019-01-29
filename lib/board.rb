@@ -20,4 +20,8 @@ class Board
      return cell_hash
   end
 
+  def valid_coordinate?(coordinate)
+    @cells.keys.include?(coordinate)
+  end
+
 end
