@@ -33,9 +33,9 @@ class Cell
 
   def render(debug = false)
     return "S" if @ship != nil && debug == true
-    return "X" if @ship != nil && @ship.sunk?
-    return "." if @fired_upon == false
+    return "." if @fired_upon == false && debug == false
     return "M" if @ship == nil && @fired_upon == true
+    return "X" if @ship != nil && @ship.sunk?
     return "H" if @ship != nil && @fired_upon == true
 
   end
