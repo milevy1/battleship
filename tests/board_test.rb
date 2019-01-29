@@ -57,6 +57,8 @@ class CellTest < Minitest::Test
   def test_valid_placement_requires_correct_number_of_coordinates
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
+    assert_equal true, @board.valid_placement?(@cruiser, ["A2", "A3", "A4"])
   end
 
 
