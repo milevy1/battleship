@@ -65,11 +65,10 @@ class CellTest < Minitest::Test
 
   def test_cell_renders_X_after_ship_sunk
     @cell.place_ship(@cruiser)
-    @cruiser.hit
+    @cell.fire_upon
     @cruiser.hit
     @cruiser.hit
 
-    puts @cruiser.sunk?
     assert_equal "X", @cell.render
   end
 
