@@ -12,8 +12,8 @@ class CellTest < Minitest::Test
 
   def test_cell_has_initial_attributes
     assert_equal "B4", @cell.coordinate
-    assert_equal nil, @cell.ship
-    assert_equal true, @cell.empty?
+    assert_nil @cell.ship
+    assert_equal true, @cell.empty? # Should be method?
   end
 
   def test_cell_attributes_change_after_placing_a_ship
@@ -26,6 +26,7 @@ class CellTest < Minitest::Test
   def test_cell_cannot_place_ship_if_already_occupied_by_a_ship
     skip
     # This will be a good test to do later
+    # I'm wondering if this should be in the board_test.rb?
   end
 
   def test_cell_attributes_change_after_fired_upon
@@ -68,6 +69,7 @@ class CellTest < Minitest::Test
     @cruiser.hit
     @cruiser.hit
 
+    puts @cruiser.sunk?
     assert_equal "X", @cell.render
   end
 
