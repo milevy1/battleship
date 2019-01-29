@@ -66,4 +66,9 @@ class CellTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
   end
 
+  def test_valid_placement_requires_cells_to_be_in_order
+    assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A2", "A1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["C1", "B1"])
+  end
+
 end
