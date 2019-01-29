@@ -12,7 +12,7 @@ class CellTest < Minitest::Test
 
   def test_cell_has_initial_attributes
     assert_equal "B4", @cell.coordinate
-    assert_equal nil, @cell.ship
+    assert_nil @cell.ship
     assert_equal true, @cell.empty? # Should be method?
   end
 
@@ -69,6 +69,7 @@ class CellTest < Minitest::Test
     @cruiser.hit
     @cruiser.hit
 
+    puts @cruiser.sunk?
     assert_equal "X", @cell.render
   end
 

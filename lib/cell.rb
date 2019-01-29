@@ -4,7 +4,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
-    @fired_upon = false # Should this be just the method?
+    @fired_upon = false
   end
 
   def empty?
@@ -18,11 +18,9 @@ class Cell
   end
 
   def fire_upon
-    if !@fired_upon
-      @fired_upon = true
-      if @ship
-        @ship.hit
-      end
+    @fired_upon = true
+    if @ship && !@fired_upon
+      @ship.hit
     end
   end
 
@@ -31,10 +29,11 @@ class Cell
   end
 
   def render(debug = false)
+    return "S" if @ship != nil && debug == true
+    return "X" if @ship != nil && @ship.sunk?
     return "." if @fired_upon == false
     return "M" if @ship == nil && @fired_upon == true
-    return "X" if @ship.sunk?
     return "H" if @ship != nil && @fired_upon == true
-    return "S" if @ship != nil && debug == true
+
   end
 end
