@@ -37,7 +37,7 @@ class CellTest < Minitest::Test
 
     cell_hash.keys.each do |coordinate|
       assert rows.include?(coordinate[0])
-      assert columns.include?(coordinate[1..-1])
+      assert columns.include?(coordinate[1..-1].to_i)
     end
   end
 
