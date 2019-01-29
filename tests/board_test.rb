@@ -61,5 +61,9 @@ class CellTest < Minitest::Test
     assert_equal true, @board.valid_placement?(@cruiser, ["A2", "A3", "A4"])
   end
 
+  def test_valid_placement_requires_cells_to_be_consecutive
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
+  end
 
 end
