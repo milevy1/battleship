@@ -71,4 +71,9 @@ class CellTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["C1", "B1"])
   end
 
+  def test_valid_placement_requires_cells_not_diagnal
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
+    assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"])
+  end
+
 end
