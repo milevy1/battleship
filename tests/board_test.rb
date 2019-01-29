@@ -12,6 +12,8 @@ class CellTest < Minitest::Test
     # @dim = 4
 
     @board = Board.new#(@dim)
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   def test_it_has_correct_number_cells
@@ -37,13 +39,26 @@ class CellTest < Minitest::Test
 
     cell_hash.keys.each do |coordinate|
       assert rows.include?(coordinate[0])
-      assert columns.include?(coordinate[1..-1])
+      assert columns.include?(coordinate[1..-1].to_i)
     end
   end
 
   def test_place_fills_correct_cells
     skip
     ###
+  end
+
+  def test_valid_coordinates
+    assert_equal true, @board.valid_coordinate?("A1")
+    assert_equal false, @board.valid_coordinate?("A5")
+    assert_equal false, @board.valid_coordinate?("E1")
+  end
+
+  def test_valid_placement_requires_correct_number_of_coordinates
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
+    assert_equal true, @board.valid_placement?(@cruiser, ["A2", "A3", "A4"])
   end
 
 
