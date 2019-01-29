@@ -25,7 +25,35 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_array)
-    return ship.length == coordinate_array.length
+    return false if ship.length == coordinate_array.length
+
+    if coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
+      return false
+    end
+
+    rows = coordinate_array.map { |coordinate| coordinate[0]}
+    columns = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
+
+    in_row = rows.count(rows[0]) == rows.length
+    in_column = columns.count(column[0]) == columns.length
+
+    return false if !in_row && !in_column
+
+    if in_row
+      test_consecutive = columns
+    else
+      test_consecutive = rows
+    end
+
+    non_consecutive = test_consecutive.any?.with_index do |coordinate, index|
+      if index != 0
+        coordinate.to_i != test_consecutive[index-1].to_i +1
+      end
+    end
+
+    return !non_consecutive
+
+
   end
 
 end
