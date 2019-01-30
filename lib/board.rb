@@ -1,7 +1,7 @@
 require 'pry'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells, :rows, :columns
 
   def initialize(rows = 4, columns = 4)
     @rows = rows
@@ -68,6 +68,9 @@ class Board
     if valid_placement?(ship, coordinate_array)
       coordinate_array.each { |coordinate|
         @cells[coordinate].place_ship(ship) }
+      return true
+    else
+      return false
     end
   end
 
