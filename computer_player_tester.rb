@@ -69,27 +69,6 @@ class ComputerPlayer
     return adjacent_coordinates.keep_if{ |coord| @opponent_board.cells.keys.include?(coord)}
   end
 
-  def smart_shot
-    hit_locations = @opponent_board.cells.keys.find_all{
-      |cell_coord|
-      cell = @opponent_board.cell[cell_coord]
-      cell.fired_upon? && cell.ship != nil && !cell.ship.sunk?
-    }
-
-    if hit_locations == []
-      return random_shot
-    end
-
-
-  end
-
-  def find_adjacent(cell_coordinate)
-    rows = @opponent_board.rows
-    columns = @opponent_board.columns
-
-
-  end
-
   def find_potential_placements(length)
     potential_placements = []
     potential_placements += column_placements(length)
