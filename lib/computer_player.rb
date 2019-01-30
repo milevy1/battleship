@@ -11,9 +11,21 @@ class ComputerPlayer
     @ships_to_place.each{ |ship|
       potential_placements = find_potential_placements(ship.length)
 
+      until @own_board.place(ship, potential_placements.shuffle.first)
+        p "Finding Placement for #{ship.name}"
+      end
     }
+
   end
 
+  def random_shot
+    potential_shot_locations = @opponent_board.cells.keys.find_all{
+      |cell_coord|
+      !@opponent_board.cells[cell_coord].fired_upon?
+    }
+    return potential_shot_locations.shuffle.first
+  end
+  
   def find_potential_placements(length)
     potential_placements = []
     potential_placements += column_placements(length)
