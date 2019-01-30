@@ -5,6 +5,10 @@ class Message
     puts "Enter p to play. Enter q to quit."
   end
 
+  def prompt_user
+    print "> "
+  end
+
   def player_ship_placement_intro
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
