@@ -41,4 +41,11 @@ class Message
     puts "Please enter a valid coordinate:"
   end
 
+  def shot_results
+    # This needs work with game logic for coordinates
+    # and result (miss/hit/sunk)
+    puts "Your shot on A4 was a miss."
+    puts "My shot on C1 was a miss."
+  end
+
 end
