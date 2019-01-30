@@ -41,6 +41,11 @@ class Message
     puts "Please enter a valid coordinate:"
   end
 
+  def player_shot_already_fired_upon
+    puts "That coordinate was already fired upon."
+    player_shot_prompt
+  end
+
   def shot_results
     # This needs work with game logic for coordinates
     # and result (miss/hit/sunk)
