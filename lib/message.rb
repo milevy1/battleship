@@ -23,4 +23,14 @@ class Message
     puts "Those are invalid coordinates. Please try again:"
   end
 
+  def computer_board(computer_board)
+    puts "=============COMPUTER BOARD============="
+    puts computer_board.render
+  end
+
+  def player_board(player_board)
+    puts "==============PLAYER BOARD=============="
+    puts player_board.render(true)
+  end
+
 end
