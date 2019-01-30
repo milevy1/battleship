@@ -58,7 +58,7 @@ class Message
   end
 
   def computer_wins_message
-    puts "You have lost to a computer built by coders in their 2nd week of coding. FAIL!"
+    puts "You have lost to a computer built by students in their 2nd week of code school. FAIL!"
   end
 
 end
