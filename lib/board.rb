@@ -6,13 +6,13 @@ class Board
   def initialize(rows = 4, columns = 4)
     @rows = rows
     @columns = columns
-    @cells = build_initial_cells(@rows, @columns)
+    @cells = build_initial_cells
   end
 
-  def build_initial_cells(rows, columns)
+  def build_initial_cells
     cell_hash = {}
-    number_range = 1..columns
-    letter_range = 65.chr..(65+rows-1).chr
+    number_range = 1..@columns
+    letter_range = 65.chr..(65+@rows-1).chr
 
     number_range.each { |number|
       letter_range.each { |letter|
@@ -38,11 +38,11 @@ class Board
       return false
     end
 
-    rows = coordinate_array.map { |coordinate| coordinate[0]}
-    columns = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
+    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
+    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
 
-    in_row = rows.uniq.length == 1
-    in_column = columns.uniq.length == 1
+    in_row = rows_from_input.uniq.length == 1
+    in_column = columns_from_input.uniq.length == 1
 
     return false if !in_row && !in_column
 
@@ -55,9 +55,9 @@ class Board
       possible_letter_sequences << sequence}
 
     if in_row
-      return false if !possible_number_sequences.include?(columns)
+      return false if !possible_number_sequences.include?(columns_from_input)
     else
-      return false if !possible_letter_sequences.include?(rows)
+      return false if !possible_letter_sequences.include?(rows_from_input)
     end
 
     return true
@@ -71,12 +71,12 @@ class Board
     end
   end
 
-  def render(debug = false, rows = 4, columns=4)
+  def render(debug = false)
 
-    column_values = (1..columns)
-    row_values = (65.chr..(65+rows-1).chr)
+    column_values = (1..@columns)
+    row_values = (65.chr..(65+@rows-1).chr)
 
-    header_row ="  " + (1..columns).map{|n| n.to_s}.join(" ") + " \n"
+    header_row ="  " + (1..@columns).map{|n| n.to_s}.join(" ") + " \n"
     board_rows = []
 
     row_values.each{ |row|
