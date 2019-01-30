@@ -32,11 +32,34 @@ class Cell
   end
 
   def render(debug = false)
-    return "S" if @ship != nil && debug == true
-    return "." if @fired_upon == false && debug == false
-    return "M" if @ship == nil && @fired_upon == true
-    return "X" if @ship != nil && @ship.sunk?
-    return "H" if @ship != nil && @fired_upon == true
+    if @ship == nil
+      if @fired_upon
+        return "M"
+      else
+        return "."
+      end
+    else # There is a ship
+      if @fired_upon
+        if @ship.sunk?
+          return "X"
+        else
+          return "H"
+        end
+      else # Not fired upon
+        if debug
+          return "S"
+        else
+          return "."
+        end
+      end
+    end
+
+    # return "H" if @ship != nil && @fired_upon == true
+    # return "S" if @ship != nil && debug == true
+    # return "." if @fired_upon == false
+    # return "M" if @ship == nil && @fired_upon == true
+    # return "X" if @ship != nil && @ship.sunk?
+
 
   end
 end
