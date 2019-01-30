@@ -1,7 +1,7 @@
 require 'pry'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells, :rows, :columns
 
   def initialize(rows = 4, columns = 4)
     @rows = rows
