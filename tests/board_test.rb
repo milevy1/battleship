@@ -94,4 +94,33 @@ class CellTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
   end
 
+  def test_board_renders
+    @board.place(@cruiser, ["A1","A2","A3"])
+
+    normal_render = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    debug_render = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+
+    assert_equal normal_render, @board.render
+    assert_equal debug_render, @board.render(true)
+
+    @board.cells['A1'].fire_upon
+    @board.cells['D4'].fire_upon
+
+    normal_render_fire2 = "  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . M \n"
+    debug_render_fire2 = "  1 2 3 4 \nA H S S . \nB . . . . \nC . . . . \nD . . . M \n"
+
+    assert_equal normal_render_fire2, @board.render
+    assert_equal debug_render_fire2, @board.render(true)
+
+    @board.cells['A2'].fire_upon
+    @board.cells['A3'].fire_upon
+
+    normal_render_sunk = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . M \n"
+    debug_render_sunk = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . M \n"
+
+    assert_equal normal_render_sunk, @board.render
+    assert_equal debug_render_sunk, @board.render(true)
+
+  end
+
 end
