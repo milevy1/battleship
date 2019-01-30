@@ -80,12 +80,8 @@ class Board
 
     row_values.each{ |row|
       row_string = row + " "
-      # p row_string
       column_values.each{ |col|
         cell_coordinate = row + col.to_s
-        # p cell_coordinate
-        # p @cells[cell_coordinate]
-        # p @cells[cell_coordinate].render(true)
         row_string += @cells[cell_coordinate].render(debug) + " "
       }
       board_rows << row_string + "\n"
