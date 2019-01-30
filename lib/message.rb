@@ -33,4 +33,12 @@ class Message
     puts player_board.render(true)
   end
 
+  def player_shot_prompt
+    puts "Enter the coordinate for your shot:"
+  end
+
+  def player_shot_invalid_coordinate
+    puts "Please enter a valid coordinate:"
+  end
+
 end
