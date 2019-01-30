@@ -33,6 +33,10 @@ class Board
       return false
     end
 
+    if coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
+      return false
+    end
+
     rows = coordinate_array.map { |coordinate| coordinate[0]}
     columns = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
 
@@ -59,5 +63,11 @@ class Board
 
   end
 
+  def place(ship, coordinate_array)
+    if valid_placement?(ship, coordinate_array)
+      coordinate_array.each { |coordinate|
+        @cells[coordinate].place_ship(ship) }
+    end
+  end
 
 end
