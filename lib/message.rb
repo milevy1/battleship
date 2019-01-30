@@ -53,4 +53,12 @@ class Message
     puts "My shot on C1 was a miss."
   end
 
+  def player_wins_message
+    puts "Congratulations! You have won!"
+  end
+
+  def computer_wins_message
+    puts "You have lost to a computer built by coders in their 2nd week of coding. FAIL!"
+  end
+
 end
