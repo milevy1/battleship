@@ -5,7 +5,7 @@ class Game
     @message = Messages.new
   end
 
-  def setup_game
+  def main_menu
     @message.main_menu
     @message.prompt_user
   end
