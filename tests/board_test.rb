@@ -113,14 +113,14 @@ class CellTest < Minitest::Test
     assert_equal debug_render_fire2, @board.render(true)
 
     @board.cells['A2'].fire_upon
-    @board.cells['A3'].fired_upon
+    @board.cells['A3'].fire_upon
 
     normal_render_sunk = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . M \n"
     debug_render_sunk = "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . M \n"
 
     assert_equal normal_render_sunk, @board.render
     assert_equal debug_render_sunk, @board.render(true)
-    
+
   end
 
 end
