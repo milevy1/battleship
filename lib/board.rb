@@ -3,15 +3,16 @@ require 'pry'
 class Board
   attr_reader :cells
 
-  def initialize(dim = 4)
-    @dim = dim
-    @cells = build_initial_cells(@dim)
+  def initialize(rows = 4, columns = 4)
+    @rows = rows
+    @columns = columns
+    @cells = build_initial_cells(@rows, @columns)
   end
 
-  def build_initial_cells(dim)
+  def build_initial_cells(rows, columns)
     cell_hash = {}
-    number_range = 1..dim
-    letter_range = 65.chr..(65+dim-1).chr
+    number_range = 1..columns
+    letter_range = 65.chr..(65+rows-1).chr
 
     number_range.each { |number|
       letter_range.each { |letter|
@@ -46,11 +47,11 @@ class Board
     return false if !in_row && !in_column
 
     possible_number_sequences = []
-    (1..@dim).each_cons(ship.length) { |sequence|
+    (1..@columns).each_cons(ship.length) { |sequence|
       possible_number_sequences << sequence}
 
     possible_letter_sequences = []
-    (65.chr..(65+@dim-1).chr).each_cons(ship.length) { |sequence|
+    (65.chr..(65+@rows-1).chr).each_cons(ship.length) { |sequence|
       possible_letter_sequences << sequence}
 
     if in_row
@@ -70,10 +71,10 @@ class Board
     end
   end
 
-  def render(debug = false)
-    columns = 4
+  def render(debug = false, rows = 4, columns=4)
+
     column_values = (1..columns)
-    rows = 4
+
     row_values = (65.chr..(65+rows-1).chr)
     header_row ="  " + (1..columns).map{|n| n.to_s}.join(" ") + " \n"
     board_rows = []
