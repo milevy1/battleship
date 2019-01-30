@@ -12,7 +12,9 @@ class ComputerPlayer
       potential_placements = find_potential_placements(ship.length)
 
       until @own_board.place(ship, potential_placements.shuffle.first)
+
         # p "Finding Placement for #{ship.name}"
+
       end
     }
 
@@ -86,8 +88,6 @@ class ComputerPlayer
   def find_adjacent(cell_coordinate)
     rows = @opponent_board.rows
     columns = @opponent_board.columns
-
-
   end
 
   def find_potential_placements(length)
@@ -102,7 +102,9 @@ class ComputerPlayer
 
     (1..@own_board.columns).each_cons(length){
       |column_sequence|
+
       (65.chr..(65+@own_board.rows-1).chr).each { # ("A"..end_letter)
+
         |row|
         potential_placements << column_sequence.map { |column| row + column.to_s}
       }
