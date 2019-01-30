@@ -70,4 +70,29 @@ class Board
     end
   end
 
+  def render(debug = false)
+    columns = 4
+    column_values = (1..columns)
+    rows = 4
+    row_values = (65.chr..(65+rows-1).chr)
+    header_row ="  " + (1..columns).map{|n| n.to_s}.join(" ") + " \n"
+    board_rows = []
+
+    row_values.each{ |row|
+      row_string = row + " "
+      # p row_string
+      column_values.each{ |col|
+        cell_coordinate = row + col.to_s
+        # p cell_coordinate
+        # p @cells[cell_coordinate]
+        # p @cells[cell_coordinate].render(true)
+        row_string += @cells[cell_coordinate].render(debug) + " "
+      }
+      board_rows << row_string + "\n"
+    }
+
+    return header_row + [board_rows].join
+
+  end
+
 end
