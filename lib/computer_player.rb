@@ -25,7 +25,7 @@ class ComputerPlayer
     }
     return potential_shot_locations.shuffle.first
   end
-  
+
   def find_potential_placements(length)
     potential_placements = []
     potential_placements += column_placements(length)
@@ -36,24 +36,27 @@ class ComputerPlayer
   def row_placements(length)
     potential_placements = []
 
-    (1..@own_board.columns).each_cons(ship.length){
+    (1..@own_board.columns).each_cons(length){
       |column_sequence|
       (65.chr..(65+@own_board.rows-1).chr).each {
         |row|
         potential_placements << column_sequence.map { |column| row + column.to_s}
       }
     }
+
+    return potential_placements
   end
 
-  def cloumn_placements(length)
+  def column_placements(length)
     potential_placements = []
 
-    (65.chr..(65+@own_board.rows-1).chr).each_cons(ship.length){
+    (65.chr..(65+@own_board.rows-1).chr).each_cons(length){
       |row_sequence|
       (1..@own_board.columns).each {
         |column|
-        potential_placements << column_sequence.map { |row| row + column.to_s}
+        potential_placements << row_sequence.map { |row| row + column.to_s}
       }
     }
+    return potential_placements
   end
 end
