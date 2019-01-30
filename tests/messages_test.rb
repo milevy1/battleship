@@ -3,12 +3,12 @@ require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
-require './lib/message'
+require './lib/messages'
 
-class MessageTest < Minitest::Test
+class MessagesTest < Minitest::Test
 
   def setup
-    @message = Message.new
+    @message = Messages.new
     @cruiser = Ship.new("Cruiser", 3)
   end
 

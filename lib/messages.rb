@@ -1,4 +1,4 @@
-class Message
+class Messages
 
   def main_menu
     puts "Welcome to BATTLESHIP"
