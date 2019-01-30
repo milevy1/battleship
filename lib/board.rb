@@ -74,8 +74,8 @@ class Board
   def render(debug = false, rows = 4, columns=4)
 
     column_values = (1..columns)
-
     row_values = (65.chr..(65+rows-1).chr)
+
     header_row ="  " + (1..columns).map{|n| n.to_s}.join(" ") + " \n"
     board_rows = []
 
