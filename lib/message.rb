@@ -19,4 +19,8 @@ class Message
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
   end
 
+  def invalid_coordinates
+    puts "Those are invalid coordinates. Please try again:"
+  end
+
 end
