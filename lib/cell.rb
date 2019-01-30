@@ -18,13 +18,11 @@ class Cell
   end
 
   def fire_upon
-
     if @ship && !@fired_upon
       @ship.hit
     end
 
     @fired_upon = true
-
   end
 
   def fired_upon?
