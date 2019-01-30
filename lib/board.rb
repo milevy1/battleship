@@ -68,6 +68,9 @@ class Board
     if valid_placement?(ship, coordinate_array)
       coordinate_array.each { |coordinate|
         @cells[coordinate].place_ship(ship) }
+      return true
+    else
+      return false
     end
   end
 
