@@ -56,8 +56,11 @@ class CellTest < Minitest::Test
   end
 
   def test_place_fills_correct_cells
-    skip
-    ###
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal @board.cells["A1"].ship, @cruiser
+    assert_equal @board.cells["A2"].ship, @cruiser
+    assert_equal @board.cells["A3"].ship, @cruiser
   end
 
   def test_valid_coordinates
