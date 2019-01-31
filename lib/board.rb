@@ -29,8 +29,7 @@ class Board
 
   def valid_placement?(ship, coordinate_array)
 
-    # Test if correct Length
-    return false if ship.length != coordinate_array.length
+    return false if lengths_differ(ship, coordinate_array)
 
     # Test if Coordinates all valid
     if coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
@@ -71,6 +70,10 @@ class Board
     # All validations passed, therefore it is a valid placement
     return true
 
+  end
+
+  def lengths_differ(ship, coordinate_array)
+    ship.length != coordinate_array.length
   end
 
   def place(ship, coordinate_array)
