@@ -28,42 +28,12 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_array)
-
     return false if lengths_differ(ship, coordinate_array)
-
     return false if any_coordinates_invalid(coordinate_array)
-
     return false if any_coordinates_already_hold_ship(coordinate_array)
-
-    # Test if all in one row or one column
-    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
-    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
-
-    in_row = rows_from_input.uniq.length == 1
-    in_column = columns_from_input.uniq.length == 1
-
-    return false if !in_row && !in_column
-
-    # If in row, check if column is sequential
-    if in_row
-      possible_number_sequences = []
-      (1..@columns).each_cons(ship.length) do |sequence|
-        possible_number_sequences << sequence
-      end
-      return false if !possible_number_sequences.include?(columns_from_input)
-
-    # If in column, check if row is sequential
-    else
-      possible_letter_sequences = []
-      ("A"..("A".ord+@rows-1).chr).each_cons(ship.length) do |sequence|
-        possible_letter_sequences << sequence
-      end
-      return false if !possible_letter_sequences.include?(rows_from_input)
-    end
-
+    return false if coordinates_not_consecutive(ship, coordinate_array)
     # All validations passed, therefore it is a valid placement
     return true
-
   end
 
   def lengths_differ(ship, coordinate_array)
@@ -76,6 +46,34 @@ class Board
 
   def any_coordinates_already_hold_ship(coordinate_array)
     coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
+  end
+
+  def coordinates_not_consecutive(ship, coordinate_array)
+    # Test if all in one row or one column
+    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
+    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
+
+    in_row = rows_from_input.uniq.length == 1
+    in_column = columns_from_input.uniq.length == 1
+
+    return true if !in_row && !in_column
+
+    # If in row, check if column is sequential
+    if in_row
+      possible_number_sequences = []
+      (1..@columns).each_cons(ship.length) do |sequence|
+        possible_number_sequences << sequence
+      end
+      return true if !possible_number_sequences.include?(columns_from_input)
+
+    # If in column, check if row is sequential
+    else
+      possible_letter_sequences = []
+      ("A"..("A".ord+@rows-1).chr).each_cons(ship.length) do |sequence|
+        possible_letter_sequences << sequence
+      end
+      return true if !possible_letter_sequences.include?(rows_from_input)
+    end
   end
 
   def place(ship, coordinate_array)
