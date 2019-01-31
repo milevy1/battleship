@@ -51,21 +51,22 @@ class Board
 
     return false if !in_row && !in_column
 
-    # Test if all sequential
-    possible_number_sequences = []
-    (1..@columns).each_cons(ship.length) { |sequence|
-      possible_number_sequences << sequence}
-
-    possible_letter_sequences = []
-    (65.chr..(65+@rows-1).chr).each_cons(ship.length) { |sequence|
-      possible_letter_sequences << sequence}
-
+    # If in row, check if column is sequential
     if in_row
+      possible_number_sequences = []
+      (1..@columns).each_cons(ship.length) { |sequence|
+        possible_number_sequences << sequence}
       return false if !possible_number_sequences.include?(columns_from_input)
+
+    # If in column, check if row is sequential
     else
+      possible_letter_sequences = []
+      ("A"..("A".ord+@rows-1).chr).each_cons(ship.length) { |sequence|
+        possible_letter_sequences << sequence}
       return false if !possible_letter_sequences.include?(rows_from_input)
     end
 
+    # All validations passed, therefore it is a valid placement
     return true
 
   end
@@ -85,7 +86,14 @@ class Board
     column_values = (1..@columns)
     row_values = (65.chr..(65+@rows-1).chr)
 
-    header_row ="  " + (1..@columns).map{|n| n.to_s}.join(" ") + " \n"
+    if @columns <= 9
+      header_row ="  " + (1..@columns).map{|n| n.to_s}.join(" ") + " \n"
+    else
+      header_row = (" " * 20) + (10..@columns).map { |n| n.to_s[0] }.join(" ") + " \n"
+      header_row += "  " + (1..9).map{|n| n.to_s}.join(" ") + " "
+      header_row += (10..@columns).map { |n| n.to_s[1] }.join(" ") + " \n"
+    end
+
     board_rows = []
 
     row_values.each{ |row|
@@ -100,5 +108,7 @@ class Board
     return header_row + [board_rows].join
 
   end
+
+
 
 end
