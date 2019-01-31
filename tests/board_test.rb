@@ -7,12 +7,11 @@ require './lib/board'
 class CellTest < Minitest::Test
 
   def setup
-    # For iteration 4
-    # @dim = 4
-
-    @board = Board.new#(@dim)
+    @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+
+    @board_large = Board.new(5, 6)
   end
 
   def test_it_has_correct_number_cells
@@ -122,5 +121,6 @@ class CellTest < Minitest::Test
     assert_equal debug_render_sunk, @board.render(true)
 
   end
+
 
 end
