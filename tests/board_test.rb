@@ -7,10 +7,10 @@ require './lib/board'
 class CellTest < Minitest::Test
 
   def setup
-    # For iteration 4
-    # @dim = 4
-
-    @board = Board.new#(@dim)
+    @board = Board.new
+    @board_large = Board.new(5, 6)
+    @carrier = Ship.new("Carrier", 5)
+    @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
   end
@@ -23,8 +23,22 @@ class CellTest < Minitest::Test
     assert_equal expected_cells, cell_hash.keys.length
   end
 
+  def test_large_board_has_correct_number_cells
+    expected_cells = 30
+
+    cell_hash = @board_large.cells
+
+    assert_equal expected_cells, cell_hash.keys.length
+  end
+
   def test_each_cell_is_a_cell
     cell_hash = @board.cells
+
+    cell_hash.values.each { |cell| assert_instance_of Cell, cell}
+  end
+
+  def test_large_board_each_cell_is_a_cell
+    cell_hash = @board_large.cells
 
     cell_hash.values.each { |cell| assert_instance_of Cell, cell}
   end
@@ -43,14 +57,20 @@ class CellTest < Minitest::Test
   end
 
   def test_place_fills_correct_cells
-    skip
-    ###
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal @board.cells["A1"].ship, @cruiser
+    assert_equal @board.cells["A2"].ship, @cruiser
+    assert_equal @board.cells["A3"].ship, @cruiser
   end
 
   def test_valid_coordinates
     assert_equal true, @board.valid_coordinate?("A1")
     assert_equal false, @board.valid_coordinate?("A5")
     assert_equal false, @board.valid_coordinate?("E1")
+
+    assert_equal true, @board_large.valid_coordinate?("E1")
+    assert_equal false, @board_large.valid_coordinate?("F1")
   end
 
   def test_valid_placement_requires_correct_number_of_coordinates
@@ -58,6 +78,10 @@ class CellTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A2", "A3", "A4"])
+
+    assert_equal true, @board_large.valid_placement?(@carrier, ["A1", "A2", "A3", "A4", "A5"])
+    assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3"])
+    assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3", "A4", "A5"])
   end
 
   def test_valid_placement_requires_cells_to_be_consecutive
@@ -120,7 +144,34 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render_sunk, @board.render
     assert_equal debug_render_sunk, @board.render(true)
+  end
 
+  def test_large_board_renders
+    @board_large.place(@carrier, ["A1", "A2", "A3", "A4", "A5"])
+    normal_render = "  1 2 3 4 5 6 \nA . . . . . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render = "  1 2 3 4 5 6 \nA S S S S S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+    assert_equal normal_render, @board_large.render
+    assert_equal debug_render, @board_large.render(true)
+
+    @board_large.cells['A1'].fire_upon
+    @board_large.cells['A2'].fire_upon
+    @board_large.cells['A3'].fire_upon
+    @board_large.cells['A4'].fire_upon
+
+    normal_render_fire4 = "  1 2 3 4 5 6 \nA H H H H . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render_fire4 = "  1 2 3 4 5 6 \nA H H H H S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+    assert_equal normal_render_fire4, @board_large.render
+    assert_equal debug_render_fire4, @board_large.render(true)
+
+    @board_large.cells['A5'].fire_upon
+
+    normal_render_sunk = "  1 2 3 4 5 6 \nA X X X X X . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render_sunk = "  1 2 3 4 5 6 \nA X X X X X . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+    assert_equal normal_render_sunk, @board_large.render
+    assert_equal debug_render_sunk, @board_large.render(true)
   end
 
 end
