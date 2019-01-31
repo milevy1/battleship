@@ -146,4 +146,30 @@ class CellTest < Minitest::Test
     assert_equal debug_render_sunk, @board.render(true)
   end
 
+  def test_large_board_renders
+    @board_large.place(@carrier, ["A1", "A2", "A3", "A4", "A5"])
+    normal_render = "  1 2 3 4 5 6 \nA . . . . . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render = "  1 2 3 4 5 6 \nA S S S S S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+    assert_equal normal_render, @board_large.render
+    assert_equal debug_render, @board_large.render(true)
+
+    @board_large.cells['A1'].fire_upon
+    @board_large.cells['A2'].fire_upon
+    @board_large.cells['A3'].fire_upon
+    @board_large.cells['A4'].fire_upon
+
+    normal_render_fire4 = "  1 2 3 4 5 6 \nA H H H H . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render_fire4 = "  1 2 3 4 5 6 \nA H H H H S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+    assert_equal normal_render_fire4, @board_large.render
+    assert_equal debug_render_fire4, @board_large.render(true)
+
+    @board_large.cells['A5'].fire_upon
+
+    normal_render_sunk = "  1 2 3 4 5 6 \nA H H H H . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render_sunk = "  1 2 3 4 5 6 \nA H H H H S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+
+  end
+
 end
