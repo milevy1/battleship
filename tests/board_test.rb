@@ -167,9 +167,11 @@ class CellTest < Minitest::Test
 
     @board_large.cells['A5'].fire_upon
 
-    normal_render_sunk = "  1 2 3 4 5 6 \nA H H H H . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
-    debug_render_sunk = "  1 2 3 4 5 6 \nA H H H H S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    normal_render_sunk = "  1 2 3 4 5 6 \nA X X X X X . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
+    debug_render_sunk = "  1 2 3 4 5 6 \nA X X X X X . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
 
+    assert_equal normal_render_sunk, @board_large.render
+    assert_equal debug_render_sunk, @board_large.render(true)
   end
 
 end
