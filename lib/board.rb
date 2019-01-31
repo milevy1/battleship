@@ -33,10 +33,7 @@ class Board
 
     return false if any_coordinates_invalid(coordinate_array)
 
-    # Test if Ship in any coordinates
-    if coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
-      return false
-    end
+    return false if any_coordinates_already_hold_ship(coordinate_array)
 
     # Test if all in one row or one column
     rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
@@ -75,6 +72,10 @@ class Board
 
   def any_coordinates_invalid(coordinate_array)
     coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
+  end
+
+  def any_coordinates_already_hold_ship(coordinate_array)
+    coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
   end
 
   def place(ship, coordinate_array)
