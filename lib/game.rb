@@ -39,6 +39,51 @@ class Game
       end
       puts @player_board.render(true)
      }
+     start
+  end
+
+  def start
+    while #...
+      @message.computer_board(@computer_board)
+      @message.player_board(@player_board)
+      player_shot_coordinate = player_turn
+      @message.player_shot_results(player_shot_coordinate, player_shot_feedback(player_shot_coordinate, @computer_board))
+      computer_shot_coordinate = computer_turn
+      @message.computer_shot_results(computer_shot_coordinate, player_shot_feedback(computer_shot_coordinate, @player_board))
+    end
+    
+  end
+
+  def player_turn
+    @message.player_shot_prompt
+    input = gets.chomp
+    if !@computer_board.valid_coordinate?(input)
+      @message.player_shot_invalid_coordinate
+      player_turn
+    elsif @computer_board.cells[input].fired_upon?
+      @message.player_shot_already_fired_upon
+      player_turn
+    else
+      @computer_board.cells[input].fire_upon
+    end
+    return input
+  end
+
+  def computer_turn
+    coordinate = @computer_player.random_shot
+    @player_board.cells[coordinate].fire_upon
+    return coordinate
+  end
+
+  def player_shot_feedback(coordinate, board)
+    case board.cells[coordinate].render
+    when "M"
+      " was a miss."
+    when "H"
+      " hit a ship!"
+    when "X"
+      " sunk a ship!"
+    end
   end
 
 end
