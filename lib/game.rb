@@ -65,10 +65,10 @@ class Game
     input = gets.chomp
     if !@computer_board.valid_coordinate?(input)
       @message.player_shot_invalid_coordinate
-      player_turn
+      return player_turn
     elsif @computer_board.cells[input].fired_upon?
       @message.player_shot_already_fired_upon
-      player_turn
+      return player_turn
     else
       @computer_board.cells[input].fire_upon
     end
