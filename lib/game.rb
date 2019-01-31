@@ -30,7 +30,7 @@ class Game
     @computer_player = ComputerPlayer.new(@player_board, @computer_board, computer_ships)
     @computer_player.place_own_ships
 
-    @message.player_ship_placement_intro
+    @message.player_ship_placement_intro(@player_board)
 
     player_ships.each { |ship|
       @message.player_ship_placement_input(ship)
