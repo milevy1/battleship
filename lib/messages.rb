@@ -50,11 +50,12 @@ class Messages
     puts "That coordinate was already fired upon."
   end
 
-  def shot_results
-    # This needs work with game logic for coordinates
-    # and result (miss/hit/sunk)
-    puts "Your shot on A4 was a miss."
-    puts "My shot on C1 was a miss."
+  def player_shot_results
+    "Your shot on "
+  end
+
+  def computer_shot_results
+    "My shot on "
   end
 
   def player_wins_message
