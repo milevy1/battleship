@@ -66,6 +66,14 @@ class Messages
     prompt_user
   end
 
+
+  def choose_difficulty
+    puts "What difficulty level would you like?"
+    puts "Input 'e' for easy"
+    puts "Input 'm' for medium"
+    prompt_user
+  end
+  
   def player_shot_invalid_coordinate
     puts "You have entered an invalid coordinate.  Please try again."
   end

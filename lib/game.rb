@@ -16,14 +16,14 @@ class Game
       puts "Invalid input, please try again."
       main_menu
     end
-
-
   end
 
   def setup_game
 
     rows, columns = solicit_board_size
     ship_attributes = select_ship_attributes
+    @difficulty_level = select_difficulty_level ## Not done yet
+
 
     @player_board = Board.new(rows, columns)
     @computer_board = Board.new(rows, columns)
@@ -47,6 +47,11 @@ class Game
      }
 
      play
+  end
+
+  def select_difficulty_level
+    @message.choose_difficulty
+    ###
   end
 
   def select_ship_attributes
@@ -98,7 +103,7 @@ class Game
 
   def player_shot
 
-    coordinate = loop do
+    loop do
       @message.player_shot_prompt
       coordinate = gets.chomp.upcase
 
