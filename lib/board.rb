@@ -31,10 +31,7 @@ class Board
 
     return false if lengths_differ(ship, coordinate_array)
 
-    # Test if Coordinates all valid
-    if coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
-      return false
-    end
+    return false if any_coordinates_invalid(coordinate_array)
 
     # Test if Ship in any coordinates
     if coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
@@ -74,6 +71,10 @@ class Board
 
   def lengths_differ(ship, coordinate_array)
     ship.length != coordinate_array.length
+  end
+
+  def any_coordinates_invalid(coordinate_array)
+    coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
   end
 
   def place(ship, coordinate_array)
