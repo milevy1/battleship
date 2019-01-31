@@ -43,7 +43,7 @@ class Game
   end
 
   def start
-    while #...
+    while has_an_unsunk_ship(@player_board) && has_an_unsunk_ship(@computer_board)
       @message.computer_board(@computer_board)
       @message.player_board(@player_board)
       player_shot_coordinate = player_turn
@@ -51,7 +51,13 @@ class Game
       computer_shot_coordinate = computer_turn
       @message.computer_shot_results(computer_shot_coordinate, player_shot_feedback(computer_shot_coordinate, @player_board))
     end
-    
+
+    if has_an_unsunk_ship(@player_board)
+      @message.player_wins_message
+    else
+      @message.computer_wins_message
+    end
+    main_menu
   end
 
   def player_turn
@@ -84,6 +90,13 @@ class Game
     when "X"
       " sunk a ship!"
     end
+  end
+
+  def has_an_unsunk_ship(board)
+    board.cells.values.each { |cell|
+      return true if cell.ship && !cell.ship.sunk?
+    }
+    return false
   end
 
 end
