@@ -39,10 +39,11 @@ class Messages
 
   def player_shot_prompt
     puts "Enter the coordinate for your shot:"
+    prompt_user
   end
 
   def player_shot_invalid_coordinate
-    puts "Please enter a valid coordinate:"
+    puts "You have entered an invalid coordinate.  Please try again."
   end
 
   def player_shot_already_fired_upon
