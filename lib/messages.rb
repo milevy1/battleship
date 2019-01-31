@@ -1,8 +1,28 @@
 class Messages
 
-  def main_menu
+  def welcome_play?
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
+    prompt_user
+  end
+
+  def column_choose
+    puts "How many columns do you want for your board"
+    puts "No input / non-numeric input defaults to 4"
+    prompt_user
+  end
+
+  def column_choice(columns)
+    puts "You are playing with #{columns} columns"
+  end
+
+  def row_choice(rows)
+    puts "You are playing with #{rows} rows"
+  end
+
+  def row_choose
+    puts "How many rows do you want for your board"
+    puts "No input / non-numeric input defaults to 4"
     prompt_user
   end
 
@@ -10,10 +30,14 @@ class Messages
     print "> "
   end
 
-  def player_ship_placement_intro(player_board)
+  def player_ship_placement_intro(player_board, player_ships)
     puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your two ships."
-    puts "The Cruiser is two units long and the Submarine is three units long."
+    puts "You now need to lay out your #{player_ships.length}} ships."
+
+    player_ships.each do |ship|
+      puts "The #{ship.name} is #{ship.length} long;"
+    end
+
     puts player_board.render(true)
   end
 
@@ -50,12 +74,23 @@ class Messages
     puts "That coordinate was already fired upon."
   end
 
-  def player_shot_results(coordinate, feedback)
-    puts "Your shot on " + coordinate + feedback
+  def player_shot_results(coordinate, board)
+    puts "Your shot on " + coordinate + shot_feedback(coordinate,board)
   end
 
-  def computer_shot_results(coordinate, feedback)
-    puts "My shot on " + coordinate + feedback
+  def computer_shot_results(coordinate, board)
+    puts "My shot on " + coordinate + shot_feedback(coordinate,board)
+  end
+
+  def shot_feedback(coordinate, board)
+    case board.cells[coordinate].render
+    when "M"
+      " was a miss."
+    when "H"
+      " hit a ship!"
+    when "X"
+      " sunk a ship!"
+    end
   end
 
   def player_wins_message
