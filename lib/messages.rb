@@ -48,7 +48,6 @@ class Messages
 
   def player_shot_already_fired_upon
     puts "That coordinate was already fired upon."
-    player_shot_prompt
   end
 
   def shot_results
