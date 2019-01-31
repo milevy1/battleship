@@ -89,7 +89,7 @@ class Messages
     when "H"
       " hit a ship!"
     when "X"
-      " sunk a ship!"
+      " sunk the #{board.cells[coordinate].ship.name}!"
     end
   end
 
