@@ -28,16 +28,21 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_array)
+
+    # Test if correct Length
     return false if ship.length != coordinate_array.length
 
+    # Test if Coordinates all valid
     if coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
       return false
     end
 
+    # Test if Ship in any coordinates
     if coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
       return false
     end
 
+    # Test if all in one row or one column
     rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
     columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
 
@@ -46,6 +51,7 @@ class Board
 
     return false if !in_row && !in_column
 
+    # Test if all sequential
     possible_number_sequences = []
     (1..@columns).each_cons(ship.length) { |sequence|
       possible_number_sequences << sequence}
