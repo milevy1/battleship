@@ -8,10 +8,11 @@ class CellTest < Minitest::Test
 
   def setup
     @board = Board.new
+    @board_large = Board.new(5, 6)
+    @carrier = Ship.new("Carrier", 5)
+    @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-
-    @board_large = Board.new(5, 6)
   end
 
   def test_it_has_correct_number_cells
@@ -77,6 +78,10 @@ class CellTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["A2", "A3", "A4"])
+
+    assert_equal true, @board_large.valid_placement?(@carrier, ["A1", "A2", "A3", "A4", "A5"])
+    assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3"])
+    assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3", "A4", "A5"])
   end
 
   def test_valid_placement_requires_cells_to_be_consecutive
