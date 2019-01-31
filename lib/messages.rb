@@ -50,12 +50,12 @@ class Messages
     puts "That coordinate was already fired upon."
   end
 
-  def player_shot_results
-    "Your shot on "
+  def player_shot_results(coordinate, feedback)
+    puts "Your shot on " + coordinate + feedback
   end
 
-  def computer_shot_results
-    "My shot on "
+  def computer_shot_results(coordinate, feedback)
+    puts "My shot on " + coordinate + feedback
   end
 
   def player_wins_message
