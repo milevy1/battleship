@@ -22,6 +22,14 @@ class CellTest < Minitest::Test
     assert_equal expected_cells, cell_hash.keys.length
   end
 
+  def test_large_board_has_correct_number_cells
+    expected_cells = 30
+
+    cell_hash = @board_large.cells
+
+    assert_equal expected_cells, cell_hash.keys.length
+  end
+
   def test_each_cell_is_a_cell
     cell_hash = @board.cells
 
@@ -119,8 +127,6 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render_sunk, @board.render
     assert_equal debug_render_sunk, @board.render(true)
-
   end
-
 
 end
