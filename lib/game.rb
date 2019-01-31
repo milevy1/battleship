@@ -62,17 +62,22 @@ class Game
 
   def player_turn
     @message.player_shot_prompt
-    input = gets.chomp
-    if !@computer_board.valid_coordinate?(input)
-      @message.player_shot_invalid_coordinate
-      return player_turn
-    elsif @computer_board.cells[input].fired_upon?
-      @message.player_shot_already_fired_upon
-      return player_turn
-    else
-      @computer_board.cells[input].fire_upon
+    coordinate = gets.chomp
+    while !@computer_board.valid_coordinate?(coordinate) ||
+      @computer_board.cells[coordinate].fired_upon?
+
+      if !@computer_board.valid_coordinate?(coordinate)
+        @message.player_shot_invalid_coordinate
+      else # Else it is fired upon
+        @message.player_shot_already_fired_upon
+      end
+      
+      @message.player_shot_prompt
+      coordinate = gets.chomp
     end
-    return input
+
+    @computer_board.cells[coordinate].fire_upon
+    return coordinate
   end
 
   def computer_turn
