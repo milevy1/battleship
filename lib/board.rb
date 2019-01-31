@@ -54,15 +54,17 @@ class Board
     # If in row, check if column is sequential
     if in_row
       possible_number_sequences = []
-      (1..@columns).each_cons(ship.length) { |sequence|
-        possible_number_sequences << sequence}
+      (1..@columns).each_cons(ship.length) do |sequence|
+        possible_number_sequences << sequence
+      end
       return false if !possible_number_sequences.include?(columns_from_input)
 
     # If in column, check if row is sequential
     else
       possible_letter_sequences = []
-      ("A"..("A".ord+@rows-1).chr).each_cons(ship.length) { |sequence|
-        possible_letter_sequences << sequence}
+      ("A"..("A".ord+@rows-1).chr).each_cons(ship.length) do |sequence|
+        possible_letter_sequences << sequence
+      end
       return false if !possible_letter_sequences.include?(rows_from_input)
     end
 
