@@ -6,7 +6,7 @@ class Game
   end
 
   def main_menu
-    @message.main_menu
+    @message.welcome_play?
     play_input = gets.chomp.downcase
     if play_input == "p"
       setup_game
@@ -19,82 +19,109 @@ class Game
   end
 
   def setup_game
-    @player_board = Board.new
-    player_cruiser = Ship.new("Cruiser", 3)
-    player_submarine = Ship.new("Submarine", 2)
-    player_ships = [player_cruiser, player_submarine]
-    @computer_board = Board.new
-    computer_cruiser = Ship.new("Cruiser", 3)
-    computer_submarine = Ship.new("Submarine", 2)
-    computer_ships = [computer_cruiser, computer_submarine]
-    @computer_player = ComputerPlayer.new(@player_board, @computer_board, computer_ships)
+
+    rows, columns = solicit_board_size
+    ship_attributes = select_ship_attributes
+    @difficulty_level = select_difficulty_level ## Not done yet
+
+
+    @player_board = Board.new(rows, columns)
+    @computer_board = Board.new(rows, columns)
+
+    player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
+    computer_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
+
+    @computer_player = ComputerPlayer.new(@player_board,
+                                          @computer_board,
+                                          computer_ships)
     @computer_player.place_own_ships
 
-    @message.player_ship_placement_intro(@player_board)
+    @message.player_ship_placement_intro(@player_board, player_ships)
 
     player_ships.each { |ship|
       @message.player_ship_placement_input(ship)
-      while !@player_board.place(ship, gets.chomp.split)
+      while !@player_board.place(ship, gets.chomp.upcase.split)
         @message.ship_placement_invalid_coordinates
       end
       puts @player_board.render(true)
      }
-     start
+
+     play
   end
 
-  def start
+  def select_difficulty_level
+    @message.choose_difficulty
+    ###
+  end
+
+  def select_ship_attributes
+    default_attributes = [['Cruiser',3],['Submarine',2]]
+  end
+
+  def solicit_board_size
+
+    @message.column_choose
+    columns = get_user_integer
+    columns = 4 if columns == 0
+    @message.column_choice(columns)
+
+    @message.row_choose
+    rows = get_user_integer
+    rows = 4 if rows ==0
+    @message.row_choice(rows)
+
+    return rows, columns
+  end
+
+  def get_user_integer
+    input = gets.chomp.to_i
+  end
+
+  def play
     while has_an_unsunk_ship(@player_board) && has_an_unsunk_ship(@computer_board)
       @message.computer_board(@computer_board)
       @message.player_board(@player_board)
-      player_shot_coordinate = player_turn
-      @message.player_shot_results(player_shot_coordinate, player_shot_feedback(player_shot_coordinate, @computer_board))
-      computer_shot_coordinate = computer_turn
-      @message.computer_shot_results(computer_shot_coordinate, player_shot_feedback(computer_shot_coordinate, @player_board))
+
+      @message.player_shot_results(player_shot, @computer_board)
+
+      @message.computer_shot_results(computer_shot, @player_board)
     end
 
+    results
+
+    main_menu
+  end
+
+  def results
+    ### Implement logic for a tie?
     if has_an_unsunk_ship(@player_board)
       @message.player_wins_message
     else
       @message.computer_wins_message
     end
-    main_menu
   end
 
-  def player_turn
-    @message.player_shot_prompt
-    coordinate = gets.chomp
-    while !@computer_board.valid_coordinate?(coordinate) ||
-      @computer_board.cells[coordinate].fired_upon?
+  def player_shot
+
+    loop do
+      @message.player_shot_prompt
+      coordinate = gets.chomp.upcase
 
       if !@computer_board.valid_coordinate?(coordinate)
         @message.player_shot_invalid_coordinate
-      else # Else it is fired upon
+      elsif @computer_board.cells[coordinate].fired_upon?
         @message.player_shot_already_fired_upon
+      else
+        @computer_board.cells[coordinate].fire_upon
+        return coordinate
       end
-      
-      @message.player_shot_prompt
-      coordinate = gets.chomp
     end
-
-    @computer_board.cells[coordinate].fire_upon
-    return coordinate
   end
 
-  def computer_turn
+  def computer_shot
     coordinate = @computer_player.random_shot
     @player_board.cells[coordinate].fire_upon
     return coordinate
-  end
-
-  def player_shot_feedback(coordinate, board)
-    case board.cells[coordinate].render
-    when "M"
-      " was a miss."
-    when "H"
-      " hit a ship!"
-    when "X"
-      " sunk a ship!"
-    end
   end
 
   def has_an_unsunk_ship(board)

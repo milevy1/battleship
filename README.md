@@ -9,7 +9,7 @@ _Matt Levy, William Peterson_
 - Accept lower-case coordinate inputs  # do this
 - Accept user-input `quit` to end game
 - Develop `ComputerPlayer`'s' `smart_shot`
-
+- Add `fire_upon` to `Board`
 - Move `player_shot_feedback` from `Game`-- Make it return coordinate and feedback
 - Make 2-Player
 - Add Difficulty - settings to start menu
