@@ -36,6 +36,12 @@ class CellTest < Minitest::Test
     cell_hash.values.each { |cell| assert_instance_of Cell, cell}
   end
 
+  def test_large_board_each_cell_is_a_cell
+    cell_hash = @board_large.cells
+
+    cell_hash.values.each { |cell| assert_instance_of Cell, cell}
+  end
+
   def test_each_cell_coordinate_in_board
     dim = 4
     columns = (1..(dim)).to_a
