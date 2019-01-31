@@ -30,7 +30,7 @@ class ComputerPlayerTest < Minitest::Test
     ships_placed = ships_placed.map{
       |coordinate|
       @comp_board.cells[coordinate].ship.name}
-    p ships_placed
+
     assert_equal 2, ships_placed.uniq.length
   end
 
