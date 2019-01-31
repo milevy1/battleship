@@ -1,22 +1,32 @@
-Example of 4 x 4 board:
+# Battleship
 
-board.cells
-# =>
-{
- "A1" => #<Cell:0x00007ff0728a3f58...>,
- "A2" => #<Cell:0x00007ff0728a3ee0...>,
- "A3" => #<Cell:0x00007ff0728a3e68...>,
- "A4" => #<Cell:0x00007ff0728a3df0...>,
- "B1" => #<Cell:0x00007ff0728a3d78...>,
- "B2" => #<Cell:0x00007ff0728a3d00...>,
- "B3" => #<Cell:0x00007ff0728a3c88...>,
- "B4" => #<Cell:0x00007ff0728a3c10...>,
- "C1" => #<Cell:0x00007ff0728a3b98...>,
- "C2" => #<Cell:0x00007ff0728a3b20...>,
- "C3" => #<Cell:0x00007ff0728a3aa8...>,
- "C4" => #<Cell:0x00007ff0728a3a30...>,
- "D1" => #<Cell:0x00007ff0728a39b8...>,
- "D2" => #<Cell:0x00007ff0728a3940...>,
- "D3" => #<Cell:0x00007ff0728a38c8...>,
- "D4" => #<Cell:0x00007ff0728a3850...>
-}
+_Matt Levy, William Peterson_
+
+## Current To-Do List
+
+- Add `has_an_unsunk_ship` test / method to `Board`
+  - ?Give Board array of ships?
+- Change `player_turn` from recursive to loop (like `ComputerPlayer` `place_own_ships`)  
+- Accept lower-case coordinate inputs  
+- Accept user-input `quit` to end game
+- Develop `ComputerPlayer`'s' `smart_shot`
+- Add Difficulty - settings to start menu
+- Add tests for variable `rows` / `columns` for `Board`  
+  - Implement custom board size
+- Add custom ship options (With list of default ships?)  
+
+- **Refactor Board Placement Methods**
+  - Refactor `valid_placement?` in `Board`
+  - Refactor `find_potential_placements` in `ComputerPlayer`
+  - Refactor `adjacent_coordinates` in `ComputerPlayer`
+  - Accept reverse input for coords
+
+- ?Change rows to integers with conversion methods?
+- ?Change Cell render method to more-static?
+- **Create Tests For Game**  
+  - Test that one more cell `fired_upon?` in each board after each turn
+  - More
+
+- **Questions**
+  - Scope of methods (e.g. in `valid_placement?`)
+  - How many methods (e.g. in `valid_placement`)
