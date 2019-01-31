@@ -3,10 +3,11 @@
 _Matt Levy, William Peterson_
 
 ## Current To-Do List
-
+- Refactor render for larger than size 9
 - Add `has_an_unsunk_ship` test / method to `Board`
   - ?Give Board array of ships?
 - Accept user-input `quit` to end game
+  - Create `input` class?
 - Develop `ComputerPlayer`'s' `smart_shot`
 - Add `fire_upon` to `Board`
 - Move `player_shot_feedback` from `Game`-- Make it return coordinate and feedback
