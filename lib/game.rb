@@ -32,8 +32,7 @@ class Game
 
 
     @computer_player = ComputerPlayer.new(@player_board,
-                                          @computer_board,
-                                          computer_ships)
+                                          @computer_board)
     @computer_player.place_own_ships
 
     @player_board.place_user_ships(@message)

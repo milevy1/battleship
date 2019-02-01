@@ -15,7 +15,7 @@ class Board
   def build_initial_cells
     cell_hash = {}
     number_range = 1..@columns
-    letter_range = 65.chr..(65+@rows-1).chr
+    letter_range = "A"..(("A".ord)+@rows-1).chr
 
     number_range.each { |number|
       letter_range.each { |letter|

@@ -1,14 +1,13 @@
 class ComputerPlayer
 
-  def initialize(opponent_board, own_board, ships_to_place)
+  def initialize(opponent_board, own_board)
     @opponent_board = opponent_board
     @own_board = own_board
-    @ships_to_place = ships_to_place
   end
 
   def place_own_ships
 
-    @ships_to_place.each{ |ship|
+    @own_board.ships.each{ |ship|
       potential_placements = find_potential_placements(ship.length)
 
       until @own_board.place(ship, potential_placements.shuffle.first)
