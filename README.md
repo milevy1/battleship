@@ -3,10 +3,6 @@
 _Matt Levy, William Peterson_
 
 ## Current To-Do List
-- Add `has_an_unsunk_ship` test / method to `Board`
-  - ?Give Board array of ships?
-  - Add `unplaced_ships?` method to board
-  - Add `fire_upon` to `Board`
 
 - Accept user-input `quit` to end game
   - Create `input` class?
