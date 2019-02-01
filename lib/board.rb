@@ -35,10 +35,14 @@ class Board
     end
   end
 
+  def has_unsunk_ship?
+    @ships.any?{ |ship| !ship.sunk?}
+  end
+  
   def fire_upon(coordinate)
     @cells[coordinate].fire_upon
   end
-  
+
   def place(ship, coordinate_array)
     if valid_placement?(ship, coordinate_array)
       coordinate_array.each { |coordinate|
