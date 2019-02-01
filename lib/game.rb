@@ -112,7 +112,7 @@ class Game
       elsif @computer_board.cells[coordinate].fired_upon?
         @message.player_shot_already_fired_upon
       else
-        @computer_board.cells[coordinate].fire_upon
+        @computer_board.fire_upon
         return coordinate
       end
     end
@@ -120,7 +120,7 @@ class Game
 
   def computer_shot
     coordinate = @computer_player.random_shot
-    @player_board.cells[coordinate].fire_upon
+    @player_board.fire_upon
     return coordinate
   end
 
