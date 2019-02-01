@@ -9,6 +9,7 @@ class CellTest < Minitest::Test
   def setup
     @board = Board.new
     @board_large = Board.new(5, 6)
+    @board_10 = Board.new(10, 10)
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
@@ -117,6 +118,7 @@ class CellTest < Minitest::Test
   def test_valid_placement_for_valid_cells
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["B1", "C1", "D1"])
+    assert_equal true, @board_10.valid_placement?(@cruiser, ["A8", "A9", "A10"])
   end
 
   def test_one_ship_can_occupy_multiple_cells
