@@ -81,7 +81,7 @@ class ComputerPlayer
 
     (1..@own_board.columns).each_cons(length){
       |column_sequence|
-      ("A"..("A".ord +@own_board.rows-1).chr).each { # ("A"..end_letter)
+      ("A"..(("A".ord) +@own_board.rows-1).chr).each { # ("A"..end_letter)
         |row|
         potential_placements << column_sequence.map { |column| row + column.to_s}
       }

@@ -79,7 +79,7 @@ class Game
   end
 
   def play
-    while has_an_unsunk_ship(@player_board) && has_an_unsunk_ship(@computer_board)
+    while @player_board.has_unsunk_ship? && @computer_board.has_unsunk_ship?
       @message.computer_board(@computer_board)
       @message.player_board(@player_board)
 
@@ -95,7 +95,7 @@ class Game
 
   def results
     ### Implement logic for a tie?
-    if has_an_unsunk_ship(@player_board)
+    if @player_board.has_unsunk_ship?
       @message.player_wins_message
     else
       @message.computer_wins_message
