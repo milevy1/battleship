@@ -4,9 +4,12 @@ class Board
   attr_reader :cells, :rows, :columns
 
   def initialize(rows = 4, columns = 4)
+  # def initialize(rows, columns, ship_list)
     @rows = rows
     @columns = columns
+    # @ships = ship_list
     @cells = build_initial_cells
+    @message = Messages.new
   end
 
   def build_initial_cells
@@ -21,6 +24,29 @@ class Board
        }
      }
      return cell_hash
+  end
+
+  def place_ships(message, input)
+    @ships.each do |ship|
+      message.player_ship_placement_input(ship)
+      while !place(ship, gets.chomp.upcase.split) # , input.placment_coordinates)
+        message.ship_placement_invalid_coordinates
+      end
+    end
+  end
+
+  def fire_upon(coordinate)
+    @cells[coordinate].fire_upon
+  end
+  
+  def place(ship, coordinate_array)
+    if valid_placement?(ship, coordinate_array)
+      coordinate_array.each { |coordinate|
+        @cells[coordinate].place_ship(ship) }
+      return true
+    else
+      return false
+    end
   end
 
   def valid_coordinate?(coordinate)
@@ -75,16 +101,6 @@ class Board
       return true if !possible_letter_sequences.include?(rows_from_input)
     end
     return false
-  end
-
-  def place(ship, coordinate_array)
-    if valid_placement?(ship, coordinate_array)
-      coordinate_array.each { |coordinate|
-        @cells[coordinate].place_ship(ship) }
-      return true
-    else
-      return false
-    end
   end
 
   def render(debug = false)
