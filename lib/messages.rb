@@ -32,7 +32,7 @@ class Messages
 
   def player_ship_placement_intro(player_board, player_ships)
     puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your #{player_ships.length}} ships."
+    puts "You now need to lay out your #{player_ships.length} ships."
 
     player_ships.each do |ship|
       puts "The #{ship.name} is #{ship.length} long;"
@@ -73,7 +73,7 @@ class Messages
     puts "Input 'm' for medium"
     prompt_user
   end
-  
+
   def player_shot_invalid_coordinate
     puts "You have entered an invalid coordinate.  Please try again."
   end
