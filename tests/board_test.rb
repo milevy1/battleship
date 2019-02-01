@@ -9,6 +9,7 @@ class CellTest < Minitest::Test
   def setup
     @board = Board.new
     @board_large = Board.new(5, 6)
+    @board_10 = Board.new(10, 10)
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
@@ -73,6 +74,11 @@ class CellTest < Minitest::Test
     assert_equal false, @board_large.valid_coordinate?("F1")
   end
 
+  def test_any_coordinates_invalid
+    assert_equal false, @board.any_coordinates_invalid(["A1", "A2", "A3"])
+    assert_equal true, @board.any_coordinates_invalid(["A3", "A4", "A5"])
+  end
+
   def test_valid_placement_requires_correct_number_of_coordinates
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
@@ -84,9 +90,19 @@ class CellTest < Minitest::Test
     assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3", "A4", "A5"])
   end
 
+  def test_board_lengths_differ
+    assert_equal true, @board.lengths_differ(@cruiser, ["A1", "A2"])
+    assert_equal false, @board.lengths_differ(@cruiser, ["A1", "A2", "A3"])
+  end
+
   def test_valid_placement_requires_cells_to_be_consecutive
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
+  end
+
+  def test_coordinates_not_consecutive
+    assert_equal true, @board.coordinates_not_consecutive(@submarine, ["B1", "D3"])
+    assert_equal false, @board.coordinates_not_consecutive(@cruiser, ["C2", "C3", "C4"])
   end
 
   def test_valid_placement_requires_cells_to_be_in_order
@@ -102,6 +118,7 @@ class CellTest < Minitest::Test
   def test_valid_placement_for_valid_cells
     assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
     assert_equal true, @board.valid_placement?(@cruiser, ["B1", "C1", "D1"])
+    assert_equal true, @board_10.valid_placement?(@cruiser, ["A8", "A9", "A10"])
   end
 
   def test_one_ship_can_occupy_multiple_cells
@@ -116,6 +133,13 @@ class CellTest < Minitest::Test
     @board.place(@cruiser, ["A1", "A2", "A3"])
 
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
+  end
+
+  def test_any_coordinates_already_hold_ship
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    assert_equal true, @board.any_coordinates_already_hold_ship(["A3", "B3"])
+    assert_equal false, @board.any_coordinates_already_hold_ship(["B4", "C4", "D4"])
   end
 
   def test_board_renders
