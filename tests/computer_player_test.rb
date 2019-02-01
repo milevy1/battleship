@@ -3,17 +3,19 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/computer_player'
+require './lib/messages'
 
 class ComputerPlayerTest < Minitest::Test
 
   def setup
-    @comp_board = Board.new#(@dim)
-    @player_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    default_ships = [@cruiser, @submarine]
+    @comp_board = Board.new(4,4,default_ships)#(@dim)
+    @player_board = Board.new(4,4,default_ships)
+
     @comp_player = ComputerPlayer.new(@player_board,
-                                      @comp_board,
-                                      [@cruiser, @submarine])
+                                      @comp_board)
     @player_board.place(Ship.new("test",3), ["A1","A2","A3"])
 
   end

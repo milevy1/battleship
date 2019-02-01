@@ -13,9 +13,9 @@ class MessagesTest < Minitest::Test
   end
 
   def test_player_ship_placement_input
-    expected = "Enter the squares for the Cruiser (3 spaces):\n"
+    expected = "Enter the squares for the Cruiser (3 spaces):\n "
 
-    assert_output(expected) { @message.player_ship_placement_input(@cruiser) }
+    assert_output (expected) { @message.player_ship_placement_input(@cruiser) }
   end
 
 end
