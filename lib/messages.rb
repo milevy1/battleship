@@ -30,15 +30,16 @@ class Messages
     print "> "
   end
 
-  def player_ship_placement_intro(player_board, player_ships)
-    puts "I have laid out my ships on the grid."
-    puts "You now need to lay out your #{player_ships.length} ships."
+  def player_ship_placement_intro(ships, render)
 
-    player_ships.each do |ship|
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your #{ships.length} ships."
+
+    ships.each do |ship|
       puts "The #{ship.name} is #{ship.length} long;"
     end
 
-    puts player_board.render(true)
+    puts render
   end
 
   def player_ship_placement_input(ship)

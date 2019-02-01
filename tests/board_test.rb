@@ -3,13 +3,17 @@ require 'minitest/pride'
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require './lib/messages'
 
 class CellTest < Minitest::Test
 
   def setup
-    @board = Board.new
-    @board_large = Board.new(5, 6)
-    @board_10 = Board.new(10, 10)
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+    default_ships = [@cruiser, @submarine]
+    @board = Board.new(4,4, default_ships)
+    @board_large = Board.new(5, 6, default_ships)
+    @board_10 = Board.new(10, 10, default_ships)
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
