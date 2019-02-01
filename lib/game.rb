@@ -28,7 +28,7 @@ class Game
     computer_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
 
     @player_board = Board.new(rows, columns, player_ships)
-    @computer_board = Board.new(rows, columns, computer_ships))
+    @computer_board = Board.new(rows, columns, computer_ships)
 
 
     @computer_player = ComputerPlayer.new(@player_board,

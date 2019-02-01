@@ -53,7 +53,7 @@ class ComputerPlayer
   end
 
   def find_adjacent(cell_coordinate)
-    rows = ("A"..("A"-1+@opponent_board.rows).chr).to_a
+    rows = ("A"..("A".ord-1+@opponent_board.rows).chr).to_a
     columns = (1..@opponent_board.columns).to_a
 
     coord_row = cell_coordinate[0]
@@ -81,7 +81,7 @@ class ComputerPlayer
 
     (1..@own_board.columns).each_cons(length){
       |column_sequence|
-      ("A".chr..("A" +@own_board.rows-1).chr).each { # ("A"..end_letter)
+      ("A"..("A".ord +@own_board.rows-1).chr).each { # ("A"..end_letter)
         |row|
         potential_placements << column_sequence.map { |column| row + column.to_s}
       }
@@ -93,7 +93,7 @@ class ComputerPlayer
   def column_placements(length)
     potential_placements = []
 
-    ("A".chr..("A"+@own_board.rows-1).chr).each_cons(length){
+    ("A".chr..("A".ord+@own_board.rows-1).chr).each_cons(length){
       |row_sequence|
       (1..@own_board.columns).each {
         |column|
