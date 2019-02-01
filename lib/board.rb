@@ -74,6 +74,7 @@ class Board
       end
       return true if !possible_letter_sequences.include?(rows_from_input)
     end
+    return false
   end
 
   def place(ship, coordinate_array)
