@@ -84,6 +84,11 @@ class CellTest < Minitest::Test
     assert_equal false, @board_large.valid_placement?(@battleship, ["A1", "A2", "A3", "A4", "A5"])
   end
 
+  def test_board_lengths_differ
+    assert_equal true, @board.lengths_differ(@cruiser, ["A1", "A2"])
+    assert_equal false, @board.lengths_differ(@cruiser, ["A1", "A2", "A3"])
+  end
+
   def test_valid_placement_requires_cells_to_be_consecutive
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
