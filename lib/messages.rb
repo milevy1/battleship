@@ -6,6 +6,15 @@ class Messages
     prompt_user
   end
 
+  def would_you_like_to_customize_ships?
+    puts "How many ships should we play with?"
+    puts "Enter 1 for: Cruiser(size 3) & Submarine(size 2)."
+    puts "Enter 2 for: Battleship(size 4) & Cruiser(size 3) & Submarine(size 2)."
+    puts "Enter 3 for: Carrier(size 5) & Battleship(size 4) & Cruiser(size 3) & Submarine(size 2)."
+    # puts "Enter 4 for total customization."
+    prompt_user
+  end
+
   def column_choose
     puts "How many columns do you want for your board"
     puts "No input / non-numeric input defaults to 4"
