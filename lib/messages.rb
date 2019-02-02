@@ -30,7 +30,7 @@ class Messages
 
     if ship_length == 0
       puts "Invalid entry.  Please enter an integer."
-      return prompt_user_for_custom_ship_length
+      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
     elsif ship_length > rows && ship_length > columns
       puts "Your ship length of #{ship_length} exceeds the board size of #{rows} rows by #{columns} columns."
       puts "Please try again."
