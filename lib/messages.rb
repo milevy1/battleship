@@ -23,6 +23,39 @@ class Messages
     return gets.chomp
   end
 
+  def prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+    puts "Enter a length for your #{ship_name}:"
+    prompt_user
+    ship_length = gets.chomp.to_i
+
+    if ship_length == 0
+      puts "Invalid entry.  Please enter an integer."
+      return prompt_user_for_custom_ship_length
+    elsif ship_length > rows && ship_length > columns
+      puts "Your ship length of #{ship_length} exceeds the board size of #{rows} rows by #{columns} columns."
+      puts "Please try again."
+      return prompt_user_for_custom_ship_length
+    elsif ship_length + user_ships_total_length > board_area / 3
+      puts "Your total ship lengths exceeds 1/3 of the board_area.  Please try again."
+      return prompt_user_for_custom_ship_length
+    else
+      return ship_length
+    end
+  end
+
+  def succusfully_created_a_ship(ship_name, ship_length)
+    puts "You have successfully created a #{ship_name} of length #{ship_length}."
+    puts "Would you like to create another ship? (Enter Y or N)"
+    input = gets.chomp.to_s.capitalize
+    if input != "Y" || input != "N"
+      puts "You have entered an invalid selection.  Please try again."
+      return succusfully_created_a_ship(ship_name, ship_length)
+    else
+      return input
+    end
+    return
+  end
+
   def invalid_customize_ship_selection
     puts "You have entered an invalid selection.  Please try again."
     would_you_like_to_customize_ships?
