@@ -15,6 +15,14 @@ class Messages
     prompt_user
   end
 
+  def prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+    puts "You currently have #{user_ships.length} ships of total length #{user_ships_total_length}."
+    puts "The total length of ships must be less than 1/3 the board area (#{board_area} cells)"
+    puts "Enter a name for your ship # #{user_ships.length + 1}:"
+    prompt_user
+    return gets.chomp
+  end
+
   def invalid_customize_ship_selection
     puts "You have entered an invalid selection.  Please try again."
     would_you_like_to_customize_ships?
