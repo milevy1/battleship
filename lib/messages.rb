@@ -15,6 +15,11 @@ class Messages
     prompt_user
   end
 
+  def invalid_customize_ship_selection
+    puts "You have entered an invalid selection.  Please try again."
+    would_you_like_to_customize_ships
+  end
+
   def column_choose
     puts "How many columns do you want for your board"
     puts "No input / non-numeric input defaults to 4"
