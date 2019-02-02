@@ -55,7 +55,25 @@ class Game
   end
 
   def select_ship_attributes
-    default_attributes = [['Cruiser',3],['Submarine',2]]
+
+    @message.would_you_like_to_customize_ships?
+    valid_selections = [1, 2, 3]
+    ship_selection = gets.chomp
+
+    until valid_selections.include?(ship_selection.to_i)
+      @message.invalid_customize_ship_selection
+      ship_selection = gets.chomp
+    end
+
+    case ship_selection.to_i
+    when 1
+      return [['Cruiser',3],['Submarine',2]]
+    when 2
+      return [['Battleship',4],['Cruiser',3],['Submarine',2]]
+    when 3
+      return [['Carrier', 5],['Battleship',4],['Cruiser',3],['Submarine',2]]
+    end
+
   end
 
   def solicit_board_size
