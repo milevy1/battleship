@@ -20,6 +20,10 @@ class Messages
     would_you_like_to_customize_ships?
   end
 
+  def board_is_too_small_for_ship_selection
+    puts "The board must be at least 3 times the size of all the ships.  Please try again."
+  end
+
   def column_choose
     puts "How many columns do you want for your board"
     puts "No input / non-numeric input defaults to 4"
