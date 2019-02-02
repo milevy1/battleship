@@ -87,7 +87,7 @@ class Game
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 4
-      return user_custom_ships(board_area)
+      return user_custom_ships(board_area, rows, columns)
     end
 
   end
