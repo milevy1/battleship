@@ -97,7 +97,7 @@ class Game
     user_ships = []
     user_ships_total_length = user_ships.map { |ship| ship[1] }.inject(0){ |sum, x| sum + x }
 
-    until user_input = "N"
+    until user_input == "N"
       ship_name  = @message.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
       ship_length = @message.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
 
