@@ -47,11 +47,12 @@ class Messages
     puts "You have successfully created a #{ship_name} of length #{ship_length}."
     puts "Would you like to create another ship? (Enter Y or N)"
     input = gets.chomp.to_s.capitalize
-    if input != "Y" || input != "N"
+    require "pry"; binding.pry
+    if input == "Y" || input == "N"
+      return input
+    else
       puts "You have entered an invalid selection.  Please try again."
       return succusfully_created_a_ship(ship_name, ship_length)
-    else
-      return input
     end
   end
 
