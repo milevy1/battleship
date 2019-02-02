@@ -34,10 +34,10 @@ class Messages
     elsif ship_length > rows && ship_length > columns
       puts "Your ship length of #{ship_length} exceeds the board size of #{rows} rows by #{columns} columns."
       puts "Please try again."
-      return prompt_user_for_custom_ship_length
+      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
     elsif ship_length + user_ships_total_length > board_area / 3
       puts "Your total ship lengths exceeds 1/3 of the board_area.  Please try again."
-      return prompt_user_for_custom_ship_length
+      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
     else
       return ship_length
     end
@@ -47,7 +47,7 @@ class Messages
     puts "You have successfully created a #{ship_name} of length #{ship_length}."
     puts "Would you like to create another ship? (Enter Y or N)"
     input = gets.chomp.to_s.capitalize
-    require "pry"; binding.pry
+
     if input == "Y" || input == "N"
       return input
     else
