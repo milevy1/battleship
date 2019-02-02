@@ -58,7 +58,7 @@ class Game
   def select_ship_attributes(board_area)
 
     @message.would_you_like_to_customize_ships?
-    valid_selections = [1, 2, 3]
+    valid_selections = [1, 2, 3, 4]
     ship_selection = gets.chomp.to_i
 
     until valid_selections.include?(ship_selection)
@@ -86,6 +86,8 @@ class Game
         return select_ship_attributes(board_area)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
+    when 4
+      return user_custom_ships(board_area)
     end
 
   end
