@@ -17,7 +17,7 @@ class Messages
 
   def invalid_customize_ship_selection
     puts "You have entered an invalid selection.  Please try again."
-    would_you_like_to_customize_ships
+    would_you_like_to_customize_ships?
   end
 
   def column_choose
