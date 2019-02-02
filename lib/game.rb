@@ -55,7 +55,7 @@ class Game
     ###
   end
 
-  def select_ship_attributes(board_area)
+  def select_ship_attributes(board_area, rows, columns)
 
     @message.would_you_like_to_customize_ships?
     valid_selections = [1, 2, 3, 4]
