@@ -55,6 +55,13 @@ class Messages
     end
   end
 
+  def here_are_all_your_ships_you_created(user_ships)
+    puts "Here is a list of all your ships you created:"
+    user_ships.each { |ship|
+      puts "#{ship[0]} of size #{ship[1]}"
+    }
+  end
+
   def invalid_customize_ship_selection
     puts "You have entered an invalid selection.  Please try again."
     would_you_like_to_customize_ships?
