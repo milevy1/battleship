@@ -53,7 +53,6 @@ class Messages
     else
       return input
     end
-    return
   end
 
   def invalid_customize_ship_selection
