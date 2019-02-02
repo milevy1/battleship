@@ -22,7 +22,7 @@ class Game
 
     rows, columns = solicit_board_size
     board_area = rows * columns
-    ship_attributes = select_ship_attributes(board_area)
+    ship_attributes = select_ship_attributes(board_area, rows, columns)
     @difficulty_level = select_difficulty_level ## Not done yet
 
     player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
@@ -90,6 +90,24 @@ class Game
       return user_custom_ships(board_area)
     end
 
+  end
+
+  def user_custom_ships(board_area, rows, columns)
+    user_input = "Y"
+    user_ships = []
+    user_ships_total_length = user_ships.map { |ship| ship[1] }.inject(0){ |sum, x| sum + x }
+
+    until user_input = "N"
+      ship_name  = @message.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+      ship_length = @message.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+
+      user_ships << [ship_name, ship_length]
+
+      user_input = @message.succusfully_created_a_ship(ship_name, ship_length)
+    end
+
+    @message.here_are_all_your_ships_you_created(user_ships)
+    return user_ships
   end
 
   def solicit_board_size
