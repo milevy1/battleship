@@ -21,7 +21,8 @@ class Game
   def setup_game
 
     rows, columns = solicit_board_size
-    ship_attributes = select_ship_attributes(rows, columns)
+    board_area = rows * columns
+    ship_attributes = select_ship_attributes(board_area)
     @difficulty_level = select_difficulty_level ## Not done yet
 
     player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
@@ -54,7 +55,7 @@ class Game
     ###
   end
 
-  def select_ship_attributes(rows, columns)
+  def select_ship_attributes(board_area)
 
     @message.would_you_like_to_customize_ships?
     valid_selections = [1, 2, 3]
@@ -66,25 +67,23 @@ class Game
     end
 
     # Ship lengths must be < 1/3 of the board area to play
-    board_area = rows * columns
-
     case ship_selection
     when 1
       if (board_area / 3) < 5
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(rows, columns)
+        return select_ship_attributes(board_area)
       end
       return [['Cruiser', 3],['Submarine', 2]]
     when 2
       if (board_area / 3) < 9
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(rows, columns)
+        return select_ship_attributes(board_area)
       end
       return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 3
       if (board_area / 3) < 14
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(rows, columns)
+        return select_ship_attributes(board_area)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     end
