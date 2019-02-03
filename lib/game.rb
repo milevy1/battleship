@@ -21,7 +21,8 @@ class Game
   def setup_game
 
     rows, columns = solicit_board_size
-    ship_attributes = select_ship_attributes
+    board_area = rows * columns
+    ship_attributes = select_ship_attributes(board_area, rows, columns)
     @difficulty_level = select_difficulty_level ## Not done yet
 
     player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
@@ -54,8 +55,60 @@ class Game
     ###
   end
 
-  def select_ship_attributes
-    default_attributes = [['Cruiser',3],['Submarine',2]]
+  def select_ship_attributes(board_area, rows, columns)
+
+    @message.would_you_like_to_customize_ships?
+    valid_selections = [1, 2, 3, 4]
+    ship_selection = gets.chomp.to_i
+
+    until valid_selections.include?(ship_selection)
+      @message.invalid_customize_ship_selection
+      ship_selection = gets.chomp.to_i
+    end
+
+    # Ship lengths must be < 1/3 of the board area to play
+    case ship_selection
+    when 1
+      if (board_area / 3) < 5
+        @message.board_is_too_small_for_ship_selection
+        return select_ship_attributes(board_area, rows, columns)
+      end
+      return [['Cruiser', 3],['Submarine', 2]]
+    when 2
+      if (board_area / 3) < 9
+        @message.board_is_too_small_for_ship_selection
+        return select_ship_attributes(board_area, rows, columns)
+      end
+      return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
+    when 3
+      if (board_area / 3) < 14
+        @message.board_is_too_small_for_ship_selection
+        return select_ship_attributes(board_area, rows, columns)
+      end
+      return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
+    when 4
+      return user_custom_ships(board_area, rows, columns)
+    end
+
+  end
+
+  def user_custom_ships(board_area, rows, columns)
+    user_input = "Y"
+    user_ships = []
+    user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+
+    # Loop until user_input "N" OR a 2 length ship pushes the total length > board_area / 3
+    until user_input == "N" || (user_ships_total_length + 2) > board_area / 3
+      ship_name  = @message.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+      ship_length = @message.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+
+      user_ships << [ship_name, ship_length]
+      user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+      user_input = @message.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
+    end
+
+    @message.here_are_all_your_ships_you_created(user_ships)
+    return user_ships
   end
 
   def solicit_board_size
