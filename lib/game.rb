@@ -95,15 +95,16 @@ class Game
   def user_custom_ships(board_area, rows, columns)
     user_input = "Y"
     user_ships = []
+    user_ships_total_length = user_ships.sum{ |ship| ship[1]}
 
-    until user_input == "N"
-      user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+    # Loop until user_input "N" OR a 2 length ship pushes the total length > board_area / 3
+    until user_input == "N" || (user_ships_total_length + 2) > board_area / 3
       ship_name  = @message.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
       ship_length = @message.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
 
       user_ships << [ship_name, ship_length]
-
-      user_input = @message.succusfully_created_a_ship(ship_name, ship_length)
+      user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+      user_input = @message.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
     end
 
     @message.here_are_all_your_ships_you_created(user_ships)
