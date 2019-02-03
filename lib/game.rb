@@ -71,19 +71,19 @@ class Game
     when 1
       if (board_area / 3) < 5
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area)
+        return select_ship_attributes(board_area, rows, columns)
       end
       return [['Cruiser', 3],['Submarine', 2]]
     when 2
       if (board_area / 3) < 9
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area)
+        return select_ship_attributes(board_area, rows, columns)
       end
       return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 3
       if (board_area / 3) < 14
         @message.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area)
+        return select_ship_attributes(board_area, rows, columns)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 4
