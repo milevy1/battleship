@@ -34,15 +34,6 @@ class Game
     @computer_player.place_own_ships
 
     @player_board.place_user_ships
-    # Messages.player_ship_placement_intro(@player_board, player_ships)
-    #
-    # player_ships.each { |ship|
-    #   Messages.player_ship_placement_input(ship)
-    #   while !@player_board.place(ship, gets.chomp.upcase.split)
-    #     Messages.ship_placement_invalid_coordinates
-    #   end
-    #   puts @player_board.render(true)
-    #  }
 
      play
   end
