@@ -3,7 +3,6 @@ require 'pry'
 class Board
   attr_reader :cells, :rows, :columns, :ships
 
-  # def initialize(rows = 4, columns = 4)
   def initialize(rows, columns, ship_list)
     @rows = rows
     @columns = columns
@@ -25,11 +24,11 @@ class Board
      return cell_hash
   end
 
-  def place_user_ships#, input)
+  def place_user_ships
     Messages.player_ship_placement_intro(@ships, render(true))
     @ships.each do |ship|
       message.player_ship_placement_input(ship)
-      while !place(ship, gets.chomp.upcase.split) # , input.placment_coordinates)
+      while !place(ship, gets.chomp.upcase.split)
         message.ship_placement_invalid_coordinates
       end
       puts render(true)
