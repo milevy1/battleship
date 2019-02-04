@@ -2,11 +2,11 @@ class Game
   attr_reader :message, :player_board, :computer_board, :computer_player
 
   def initialize
-    @message = Messages.new
+    Messages = Messages.new
   end
 
   def main_menu
-    @message.welcome_play?
+    Messages.welcome_play?
     play_input = gets.chomp.downcase
     if play_input == "p"
       setup_game
@@ -36,13 +36,13 @@ class Game
                                           @computer_board)
     @computer_player.place_own_ships
 
-    @player_board.place_user_ships(@message)
-    # @message.player_ship_placement_intro(@player_board, player_ships)
+    @player_board.place_user_ships(Messages)
+    # Messages.player_ship_placement_intro(@player_board, player_ships)
     #
     # player_ships.each { |ship|
-    #   @message.player_ship_placement_input(ship)
+    #   Messages.player_ship_placement_input(ship)
     #   while !@player_board.place(ship, gets.chomp.upcase.split)
-    #     @message.ship_placement_invalid_coordinates
+    #     Messages.ship_placement_invalid_coordinates
     #   end
     #   puts @player_board.render(true)
     #  }
@@ -51,24 +51,24 @@ class Game
   end
 
   def select_difficulty_level
-    @message.choose_difficulty
+    Messages.choose_difficulty
     player_choice = gets.chomp
     if ['e','h'].include?(player_choice)
       return player_choice
     else
-      @message.invalid_input
+      Messages.invalid_input
       return select_difficulty_level
     end
   end
 
   def select_ship_attributes(board_area, rows, columns)
 
-    @message.would_you_like_to_customize_ships?
+    Messages.would_you_like_to_customize_ships?
     valid_selections = [1, 2, 3, 4]
     ship_selection = gets.chomp.to_i
 
     until valid_selections.include?(ship_selection)
-      @message.invalid_customize_ship_selection
+      Messages.invalid_customize_ship_selection
       ship_selection = gets.chomp.to_i
     end
 
@@ -76,19 +76,19 @@ class Game
     case ship_selection
     when 1
       if (board_area / 3) < 5
-        @message.board_is_too_small_for_ship_selection
+        Messages.board_is_too_small_for_ship_selection
         return select_ship_attributes(board_area, rows, columns)
       end
       return [['Cruiser', 3],['Submarine', 2]]
     when 2
       if (board_area / 3) < 9
-        @message.board_is_too_small_for_ship_selection
+        Messages.board_is_too_small_for_ship_selection
         return select_ship_attributes(board_area, rows, columns)
       end
       return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 3
       if (board_area / 3) < 14
-        @message.board_is_too_small_for_ship_selection
+        Messages.board_is_too_small_for_ship_selection
         return select_ship_attributes(board_area, rows, columns)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
@@ -105,29 +105,29 @@ class Game
 
     # Loop until user_input "N" OR a 2 length ship pushes the total length > board_area / 3
     until user_input == "N" || (user_ships_total_length + 2) > board_area / 3
-      ship_name  = @message.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
-      ship_length = @message.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+      ship_name  = Messages.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+      ship_length = Messages.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
 
       user_ships << [ship_name, ship_length]
       user_ships_total_length = user_ships.sum{ |ship| ship[1]}
-      user_input = @message.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
+      user_input = Messages.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
     end
 
-    @message.here_are_all_your_ships_you_created(user_ships)
+    Messages.here_are_all_your_ships_you_created(user_ships)
     return user_ships
   end
 
   def solicit_board_size
 
-    @message.column_choose
+    Messages.column_choose
     columns = get_user_integer
     columns = 4 if columns == 0
-    @message.column_choice(columns)
+    Messages.column_choice(columns)
 
-    @message.row_choose
+    Messages.row_choose
     rows = get_user_integer
     rows = 4 if rows ==0
-    @message.row_choice(rows)
+    Messages.row_choice(rows)
 
     return rows, columns
   end
@@ -138,12 +138,12 @@ class Game
 
   def play
     while @player_board.has_unsunk_ship? && @computer_board.has_unsunk_ship?
-      @message.computer_board(@computer_board)
-      @message.player_board(@player_board)
+      Messages.computer_board(@computer_board)
+      Messages.player_board(@player_board)
 
-      @message.player_shot_results(player_shot, @computer_board)
+      Messages.player_shot_results(player_shot, @computer_board)
 
-      @message.computer_shot_results(computer_shot, @player_board)
+      Messages.computer_shot_results(computer_shot, @player_board)
     end
 
     results
@@ -154,22 +154,22 @@ class Game
   def results
     ### Implement logic for a tie?
     if @player_board.has_unsunk_ship?
-      @message.player_wins_message
+      Messages.player_wins_message
     else
-      @message.computer_wins_message
+      Messages.computer_wins_message
     end
   end
 
   def player_shot
 
     loop do
-      @message.player_shot_prompt
+      Messages.player_shot_prompt
       coordinate = gets.chomp.upcase
 
       if !@computer_board.valid_coordinate?(coordinate)
-        @message.player_shot_invalid_coordinate
+        Messages.player_shot_invalid_coordinate
       elsif @computer_board.cells[coordinate].fired_upon?
-        @message.player_shot_already_fired_upon
+        Messages.player_shot_already_fired_upon
       else
         @computer_board.fire_upon(coordinate)
         return coordinate
