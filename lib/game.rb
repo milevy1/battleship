@@ -58,6 +58,7 @@ class Game
     else
       @message.invalid_input
       return select_difficulty_level
+    end
   end
 
   def select_ship_attributes(board_area, rows, columns)
@@ -182,6 +183,7 @@ class Game
     else
       coordinate = @computer_player.smart_shot
     end
+
     @player_board.fire_upon(coordinate)
     return coordinate
   end
