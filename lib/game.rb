@@ -52,7 +52,13 @@ class Game
 
   def select_difficulty_level
     @message.choose_difficulty
-    ###
+    player_choice = gets.chomp
+    if ['e','h'].include?(player_choice)
+      return player_choice
+    else
+      @message.invalid_input
+      return select_difficulty_level
+    end
   end
 
   def select_ship_attributes(board_area, rows, columns)
@@ -172,7 +178,12 @@ class Game
   end
 
   def computer_shot
-    coordinate = @computer_player.random_shot
+    if @difficulty == 'e'
+      coordinate = @computer_player.random_shot
+    else
+      coordinate = @computer_player.smart_shot
+    end
+
     @player_board.fire_upon(coordinate)
     return coordinate
   end

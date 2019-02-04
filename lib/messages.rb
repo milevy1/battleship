@@ -143,8 +143,12 @@ class Messages
   def choose_difficulty
     puts "What difficulty level would you like?"
     puts "Input 'e' for easy"
-    puts "Input 'm' for medium"
+    puts "Input 'h' for hard"
     prompt_user
+  end
+
+  def invalid_input
+    puts "Invalid input; please try again"
   end
 
   def player_shot_invalid_coordinate
