@@ -9,7 +9,6 @@ class Board
     @columns = columns
     @ships = ship_list
     @cells = build_initial_cells
-    @message = Messages.new
   end
 
   def build_initial_cells
@@ -26,8 +25,8 @@ class Board
      return cell_hash
   end
 
-  def place_user_ships(message)#, input)
-    message.player_ship_placement_intro(@ships, render(true))
+  def place_user_ships#, input)
+    Messages.player_ship_placement_intro(@ships, render(true))
     @ships.each do |ship|
       message.player_ship_placement_input(ship)
       while !place(ship, gets.chomp.upcase.split) # , input.placment_coordinates)
