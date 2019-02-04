@@ -1,12 +1,12 @@
 class Messages
 
-  def welcome_play?
+  def self.welcome_play?
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
     prompt_user
   end
 
-  def would_you_like_to_customize_ships?
+  def self.would_you_like_to_customize_ships?
     puts "How many ships should we play with?"
     puts "Enter 1 for: Cruiser(size 3) & Submarine(size 2)."
     puts "Enter 2 for: Battleship(size 4) & Cruiser(size 3) & Submarine(size 2)."
@@ -15,7 +15,7 @@ class Messages
     prompt_user
   end
 
-  def prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+  def self.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
     puts "You currently have #{user_ships.length} ships of total length #{user_ships_total_length}."
     puts "The total length of ships must be less than 1/3 the board area (#{board_area} cells)"
     puts "Enter a name for your ship # #{user_ships.length + 1}:"
@@ -23,7 +23,7 @@ class Messages
     return gets.chomp
   end
 
-  def prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+  def self.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
     puts "Enter a length for your #{ship_name}:"
     prompt_user
     ship_length = gets.chomp.to_i
@@ -43,7 +43,7 @@ class Messages
     end
   end
 
-  def succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
+  def self.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
     puts "You have successfully created a #{ship_name} of length #{ship_length}."
 
     if (user_ships_total_length + 2) > board_area / 3
@@ -62,47 +62,47 @@ class Messages
     end
   end
 
-  def here_are_all_your_ships_you_created(user_ships)
+  def self.here_are_all_your_ships_you_created(user_ships)
     puts "Here is a list of all your ships you created:"
     user_ships.each { |ship|
       puts "#{ship[0]} of size #{ship[1]}"
     }
   end
 
-  def invalid_customize_ship_selection
+  def self.invalid_customize_ship_selection
     puts "You have entered an invalid selection.  Please try again."
     would_you_like_to_customize_ships?
   end
 
-  def board_is_too_small_for_ship_selection
+  def self.board_is_too_small_for_ship_selection
     puts "The board must be at least 3 times the size of all the ships.  Please try again."
   end
 
-  def column_choose
+  def self.column_choose
     puts "How many columns do you want for your board"
     puts "No input / non-numeric input defaults to 4"
     prompt_user
   end
 
-  def column_choice(columns)
+  def self.column_choice(columns)
     puts "You are playing with #{columns} columns"
   end
 
-  def row_choice(rows)
+  def self.row_choice(rows)
     puts "You are playing with #{rows} rows"
   end
 
-  def row_choose
+  def self.row_choose
     puts "How many rows do you want for your board"
     puts "No input / non-numeric input defaults to 4"
     prompt_user
   end
 
-  def prompt_user
+  def self.prompt_user
     print "> "
   end
 
-  def player_ship_placement_intro(ships, render)
+  def self.player_ship_placement_intro(ships, render)
 
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your #{ships.length} ships."
@@ -114,60 +114,60 @@ class Messages
     puts render
   end
 
-  def player_ship_placement_input(ship)
+  def self.player_ship_placement_input(ship)
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
     prompt_user
   end
 
-  def ship_placement_invalid_coordinates
+  def self.ship_placement_invalid_coordinates
     puts "Those are invalid coordinates. Please try again:"
     prompt_user
   end
 
-  def computer_board(computer_board)
+  def self.computer_board(computer_board)
     puts "=============COMPUTER BOARD============="
     puts computer_board.render
   end
 
-  def player_board(player_board)
+  def self.player_board(player_board)
     puts "==============PLAYER BOARD=============="
     puts player_board.render(true)
   end
 
-  def player_shot_prompt
+  def self.player_shot_prompt
     puts "Enter the coordinate for your shot:"
     prompt_user
   end
 
 
-  def choose_difficulty
+  def self.choose_difficulty
     puts "What difficulty level would you like?"
     puts "Input 'e' for easy"
     puts "Input 'h' for hard"
     prompt_user
   end
 
-  def invalid_input
+  def self.invalid_input
     puts "Invalid input; please try again"
   end
 
-  def player_shot_invalid_coordinate
+  def self.player_shot_invalid_coordinate
     puts "You have entered an invalid coordinate.  Please try again."
   end
 
-  def player_shot_already_fired_upon
+  def self.player_shot_already_fired_upon
     puts "That coordinate was already fired upon."
   end
 
-  def player_shot_results(coordinate, board)
+  def self.player_shot_results(coordinate, board)
     puts "Your shot on " + coordinate + shot_feedback(coordinate,board)
   end
 
-  def computer_shot_results(coordinate, board)
+  def self.computer_shot_results(coordinate, board)
     puts "My shot on " + coordinate + shot_feedback(coordinate,board)
   end
 
-  def shot_feedback(coordinate, board)
+  def self.shot_feedback(coordinate, board)
     case board.cells[coordinate].render
     when "M"
       " was a miss."
@@ -178,11 +178,11 @@ class Messages
     end
   end
 
-  def player_wins_message
+  def self.player_wins_message
     puts "Congratulations! You have won!"
   end
 
-  def computer_wins_message
+  def self.computer_wins_message
     puts "You have lost to a computer built by students in their 2nd week of code school. FAIL!"
   end
 
