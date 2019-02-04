@@ -18,8 +18,8 @@ class Game
   def setup_game
 
     rows, columns = solicit_board_size
-    board_area = rows * columns
-    ship_attributes = select_ship_attributes(board_area, rows, columns)
+
+    ship_attributes = select_ship_attributes( rows, columns)
     @difficulty_level = select_difficulty_level ## Not done yet
 
     player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
@@ -58,8 +58,8 @@ class Game
     end
   end
 
-  def select_ship_attributes(board_area, rows, columns)
-
+  def select_ship_attributes( rows, columns)
+    board_area = rows * columns
     Messages.would_you_like_to_customize_ships?
     valid_selections = [1, 2, 3, 4]
     ship_selection = gets.chomp.to_i
@@ -74,28 +74,29 @@ class Game
     when 1
       if (board_area / 3) < 5
         Messages.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area, rows, columns)
+        return select_ship_attributes( rows, columns)
       end
       return [['Cruiser', 3],['Submarine', 2]]
     when 2
       if (board_area / 3) < 9
         Messages.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area, rows, columns)
+        return select_ship_attributes( rows, columns)
       end
       return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 3
       if (board_area / 3) < 14
         Messages.board_is_too_small_for_ship_selection
-        return select_ship_attributes(board_area, rows, columns)
+        return select_ship_attributes(rows, columns)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
     when 4
-      return user_custom_ships(board_area, rows, columns)
+      return user_custom_ships(rows, columns)
     end
 
   end
 
-  def user_custom_ships(board_area, rows, columns)
+  def user_custom_ships(rows, columns)
+    board_area = rows * columns
     user_input = "Y"
     user_ships = []
     user_ships_total_length = user_ships.sum{ |ship| ship[1]}
