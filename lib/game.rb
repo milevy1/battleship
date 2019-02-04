@@ -2,7 +2,6 @@ class Game
   attr_reader :message, :player_board, :computer_board, :computer_player
 
   def initialize
-    Messages = Messages.new
   end
 
   def main_menu
@@ -13,7 +12,7 @@ class Game
     elsif play_input == "q"
       # Quits game
     else
-      puts "Invalid input, please try again."
+      Messages.invalid_input
       main_menu
     end
   end
@@ -36,7 +35,7 @@ class Game
                                           @computer_board)
     @computer_player.place_own_ships
 
-    @player_board.place_user_ships(Messages)
+    @player_board.place_user_ships
     # Messages.player_ship_placement_intro(@player_board, player_ships)
     #
     # player_ships.each { |ship|
