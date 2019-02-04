@@ -20,7 +20,7 @@ class Game
     rows, columns = solicit_board_size
 
     ship_attributes = select_ship_attributes( rows, columns)
-    @difficulty_level = select_difficulty_level ## Not done yet
+    @difficulty_level = select_difficulty_level
 
     player_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
     computer_ships = ship_attributes.map{ |attrs| Ship.new(*attrs)}
@@ -109,21 +109,19 @@ class Game
   def solicit_board_size
 
     Messages.column_choose
-    columns = get_user_integer
-    columns = 4 if columns == 0
+    columns = gets.chomp.to_i
+    columns = 4 if !(4..26).include?(columns)
     Messages.column_choice(columns)
 
     Messages.row_choose
-    rows = get_user_integer
-    rows = 4 if rows ==0
+    rows = gets.chomp.to_i
+    rows = 4 if !(4..26).include?(rows)
     Messages.row_choice(rows)
 
     return rows, columns
   end
 
-  def get_user_integer
-    input = gets.chomp.to_i
-  end
+
 
   def play
     while @player_board.has_unsunk_ship? && @computer_board.has_unsunk_ship?
