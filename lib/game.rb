@@ -1,8 +1,6 @@
 class Game
-  attr_reader :message, :player_board, :computer_board, :computer_player
 
-  def initialize
-  end
+
 
   def main_menu
     Messages.welcome_play?
