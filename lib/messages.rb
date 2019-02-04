@@ -79,8 +79,8 @@ class Messages
   end
 
   def self.column_choose
-    puts "How many columns do you want for your board"
-    puts "No input / non-numeric input defaults to 4"
+    puts "How many columns do you want for your board (4 <= columns <= 26)"
+    puts "No input / invalid input defaults to 4"
     prompt_user
   end
 
@@ -93,8 +93,8 @@ class Messages
   end
 
   def self.row_choose
-    puts "How many rows do you want for your board"
-    puts "No input / non-numeric input defaults to 4"
+    puts "How many rows do you want for your board (4 <= rows <= 26)"
+    puts "No input / invalid input defaults to 4"
     prompt_user
   end
 
