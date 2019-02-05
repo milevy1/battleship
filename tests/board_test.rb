@@ -75,6 +75,14 @@ class CellTest < Minitest::Test
     assert_equal @board.cells["A3"].ship, @cruiser
   end
 
+  def test_fire_upon
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+
+    @board.fire_upon("A1")
+
+    assert_equal true, @board.cells["A1"].fired_upon?
+  end
+  
   def test_has_unsunk_ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
     @board.place(@submarine, ["D3","D4"])
@@ -92,7 +100,7 @@ class CellTest < Minitest::Test
 
     assert_equal false, @board.has_unsunk_ship?
   end
-  
+
   def test_valid_coordinates
     assert_equal true, @board.valid_coordinate?("A1")
     assert_equal false, @board.valid_coordinate?("A5")
