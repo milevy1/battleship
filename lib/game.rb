@@ -4,14 +4,17 @@ class Game
 
   def main_menu
     Messages.welcome_play?
-    play_input = gets.chomp.downcase
-    if play_input == "p"
-      setup_game
-    elsif play_input == "q"
-      # Quits game
-    else
+    play_input = gets.chomp.upcase
+
+    until ["P","Q"].include?(play_input)
       Messages.invalid_input
-      main_menu
+      play_input = gets.chomp.upcase
+    end
+    
+    if play_input == "P"
+      setup_game
+    else
+      # Quits game
     end
   end
 
@@ -188,13 +191,14 @@ class Game
   end
 
   def computer_shot
-    if @difficulty == 'e'
+    if @difficulty == 'E'
       coordinate = @computer_player.random_shot
     else
       coordinate = @computer_player.smart_shot
     end
 
     @player_board.fire_upon(coordinate)
+
     return coordinate
   end
 
