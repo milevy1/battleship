@@ -13,13 +13,14 @@ class Board
     number_range = 1..@columns
     letter_range = "A"..(("A".ord)+@rows-1).chr
 
-    number_range.each { |number|
-      letter_range.each { |letter|
+    number_range.each do |number|
+      letter_range.each do |letter|
         coordinate = letter + number.to_s
         cell_hash[coordinate] = Cell.new(coordinate)
-       }
-     }
-     return cell_hash
+      end
+    end
+
+    return cell_hash
   end
 
   def place_user_ships
@@ -34,7 +35,7 @@ class Board
   end
 
   def has_unsunk_ship?
-    @ships.any?{ |ship| !ship.sunk?}
+    @ships.any?{ |ship| !ship.sunk? }
   end
 
   def fire_upon(coordinate)
@@ -43,8 +44,9 @@ class Board
 
   def place(ship, coordinate_array)
     if valid_placement?(ship, coordinate_array)
-      coordinate_array.each { |coordinate|
-        @cells[coordinate].place_ship(ship) }
+      coordinate_array.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
       return true
     else
       return false
@@ -65,22 +67,24 @@ class Board
   end
 
   def lengths_differ(ship, coordinate_array)
-    ship.length != coordinate_array.length
+    return ship.length != coordinate_array.length
   end
 
   def any_coordinates_invalid(coordinate_array)
-    coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate)}
+    return coordinate_array.any?{ |coordinate| !valid_coordinate?(coordinate) }
   end
 
   def any_coordinates_already_hold_ship(coordinate_array)
-    coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
+    return coordinate_array.any?{ |coordinate| @cells[coordinate].ship }
   end
 
   def coordinates_not_consecutive(ship, coordinate_array)
-    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
-    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
+    rows_from_input = coordinate_array.map { |coordinate| coordinate[0] }
+    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i }
 
-    coordinate_orientation = coordinates_in_row_or_column(coordinate_array, rows_from_input, columns_from_input)
+    coordinate_orientation = coordinates_in_row_or_column(coordinate_array,
+                                                          rows_from_input,
+                                                          columns_from_input)
     return true if coordinate_orientation == false
 
     # If in row, check if column is sequential
@@ -120,7 +124,7 @@ class Board
   def render(debug = false)
 
     column_values = (1..@columns)
-    row_values = (65.chr..(65+@rows-1).chr)
+    row_values = ("A"..(("A".ord)+@rows-1).chr)
 
     if @columns <= 9
       header_row ="  " + (1..@columns).map{|n| n.to_s}.join(" ") + " \n"
@@ -132,14 +136,14 @@ class Board
 
     board_rows = []
 
-    row_values.each{ |row|
+    row_values.each do |row|
       row_string = row + " "
-      column_values.each{ |col|
+      column_values.each do |col|
         cell_coordinate = row + col.to_s
         row_string += @cells[cell_coordinate].render(debug) + " "
-      }
+      end
       board_rows << row_string + "\n"
-    }
+    end
 
     return header_row + [board_rows].join
 
