@@ -10,7 +10,7 @@ class Game
       Messages.invalid_input
       play_input = gets.chomp.upcase
     end
-    
+
     if play_input == "P"
       setup_game
     else
@@ -201,12 +201,5 @@ class Game
 
     return coordinate
   end
-
-  # def has_an_unsunk_ship(board)
-  #   board.cells.values.each { |cell|
-  #     return true if cell.ship && !cell.ship.sunk?
-  #   }
-  #   return false
-  # end
 
 end
