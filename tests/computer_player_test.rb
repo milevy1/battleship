@@ -20,6 +20,10 @@ class ComputerPlayerTest < Minitest::Test
     @player_board.place(Ship.new("test",3), ["A1","A2","A3"])
   end
 
+  def test_it_exists
+    assert_instance_of ComputerPlayer, @comp_player
+  end
+  
   def test_place_own_ships_places_all_ships
     @comp_player.place_own_ships
 
@@ -51,7 +55,7 @@ class ComputerPlayerTest < Minitest::Test
   end
 
   def test_smart_shot_returns_valid_coordinate_near_hit
-    @player_board.fire_upon(["A1"])
+    @player_board.fire_upon("A1")
 
     valid_shot = ["A2","B1"]
 
