@@ -159,4 +159,8 @@ class Messages
     puts "You have lost to a computer built by students in their 2nd week of code school. FAIL!"
   end
 
+  def self.tie_game_message
+    puts "It is a draw.  We both sunk our last ships on the same turn."
+  end
+
 end

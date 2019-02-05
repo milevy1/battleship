@@ -166,7 +166,9 @@ class Game
 
   def results
     ### Implement logic for a tie?
-    if @player_board.has_unsunk_ship?
+    if !@player_board.has_unsunk_ship? && !@computer_board.has_unsunk_ship?
+      Messages.tie_game_message
+    elsif @player_board.has_unsunk_ship?
       Messages.player_wins_message
     else
       Messages.computer_wins_message
