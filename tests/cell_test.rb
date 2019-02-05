@@ -55,7 +55,6 @@ class CellTest < Minitest::Test
 
   def test_cell_renders_H_after_fired_upon
     @cell.place_ship(@cruiser)
-
     @cell.fire_upon
 
     assert_equal "H", @cell.render
