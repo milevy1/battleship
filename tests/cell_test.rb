@@ -17,7 +17,8 @@ class CellTest < Minitest::Test
   def test_cell_has_initial_attributes
     assert_equal "B4", @cell.coordinate
     assert_nil @cell.ship
-    assert_equal true, @cell.empty? # Should be method?
+    assert_equal true, @cell.empty?
+    assert_equal false, @cell.fired_upon?
   end
 
   def test_cell_attributes_change_after_placing_a_ship
@@ -29,11 +30,8 @@ class CellTest < Minitest::Test
 
   def test_cell_attributes_change_after_fired_upon
     @cell.place_ship(@cruiser)
-
-    assert_equal false, @cell.fired_upon?
-
     @cell.fire_upon
-
+    
     assert_equal 2, @cell.ship.health
     assert_equal true, @cell.fired_upon?
   end
