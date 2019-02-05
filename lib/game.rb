@@ -105,8 +105,14 @@ class Game
         ship_name = gets.chomp
       end
 
+      Messages.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
 
-      ship_length = Messages.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+      ship_length = gets.chomp.to_i
+      until (2..remaining_ship_length).include(ship_length)
+        Messages.invalid_input
+        ship_length = gets.chomp.to_i
+      end
+
 
       user_ships << [ship_name, ship_length]
       user_ships_total_length = user_ships.sum{ |ship| ship[1]}

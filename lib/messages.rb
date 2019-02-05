@@ -23,27 +23,13 @@ class Messages
     puts "You currently have #{user_ships.length}."
     puts "Additional ships may take up no more than #{remaining_ship_length} cells"
     puts "Enter a name for your ship # #{user_ships.length + 1}:"
-    prompt_user
+    self.prompt_user
   end
 
-  def self.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+  def self.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
     puts "Enter a length for your #{ship_name}:"
-    prompt_user
-    ship_length = gets.chomp.to_i
-
-    if ship_length == 0
-      puts "Invalid entry.  Please enter an integer."
-      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
-    elsif ship_length > rows && ship_length > columns
-      puts "Your ship length of #{ship_length} exceeds the board size of #{rows} rows by #{columns} columns."
-      puts "Please try again."
-      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
-    elsif ship_length + user_ships_total_length > board_area / 3
-      puts "Your total ship lengths exceeds 1/3 of the board_area.  Please try again."
-      return prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
-    else
-      return ship_length
-    end
+    puts "Must be greater than 2 and less than #{remaining_ship_length}"
+    self.prompt_user
   end
 
   def self.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
