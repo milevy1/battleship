@@ -8,6 +8,7 @@ require './lib/messages'
 class CellTest < Minitest::Test
 
  ### Need to test has_unsunk_ship? and fire_upon
+
   def setup
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
@@ -74,6 +75,24 @@ class CellTest < Minitest::Test
     assert_equal @board.cells["A3"].ship, @cruiser
   end
 
+  def test_has_unsunk_ship
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["D3","D4"])
+
+    assert_equal true, @board.has_unsunk_ship?
+
+    @board.fire_upon("A1")
+    @board.fire_upon("A2")
+    @board.fire_upon("A3")
+
+    assert_equal true, @board.has_unsunk_ship?
+
+    @board.fire_upon("D3")
+    @board.fire_upon("D4")
+
+    assert_equal false, @board.has_unsunk_ship?
+  end
+  
   def test_valid_coordinates
     assert_equal true, @board.valid_coordinate?("A1")
     assert_equal false, @board.valid_coordinate?("A5")
