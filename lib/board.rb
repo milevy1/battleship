@@ -79,11 +79,14 @@ class Board
   end
 
   def coordinates_not_consecutive(ship, coordinate_array)
-    coordinate_orientation = coordinates_in_row_or_column
+    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
+    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
+
+    coordinate_orientation = coordinates_in_row_or_column(coordinate_array, rows_from_input, columns_from_input)
     return true if coordinate_orientation == false
 
     # If in row, check if column is sequential
-    if coordinate_orientation == "row"
+    if coordinate_orientation == "rows"
       possible_number_sequences = []
       (1..@columns).each_cons(ship.length) do |sequence|
         possible_number_sequences << sequence
@@ -98,16 +101,14 @@ class Board
       end
       return true if !possible_letter_sequences.include?(rows_from_input)
     end
-    
+
     # Coordinates in row or column; Coordinates sequential
     # Thus not_consecutive is false
     return false
   end
 
-  def coordinates_in_row_or_column
+  def coordinates_in_row_or_column(coordinate_array, rows_from_input, columns_from_input)
     # Test if all in one row or one column
-    rows_from_input = coordinate_array.map { |coordinate| coordinate[0]}
-    columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i}
 
     if rows_from_input.uniq.length == 1
       return "rows"
