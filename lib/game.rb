@@ -56,7 +56,7 @@ class Game
     ship_selection = gets.chomp.to_i
 
     until valid_selections.include?(ship_selection)
-      Messages.invalid_customize_ship_selection
+      Messages.invalid_input
       ship_selection = gets.chomp.to_i
     end
 
@@ -120,8 +120,6 @@ class Game
 
     return rows, columns
   end
-
-
 
   def play
     while @player_board.has_unsunk_ship? && @computer_board.has_unsunk_ship?

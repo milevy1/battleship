@@ -69,11 +69,6 @@ class Messages
     }
   end
 
-  def self.invalid_customize_ship_selection
-    puts "You have entered an invalid selection.  Please try again."
-    would_you_like_to_customize_ships?
-  end
-
   def self.board_is_too_small_for_ship_selection
     puts "The board must be at least 3 times the size of all the ships.  Please try again."
   end
