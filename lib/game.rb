@@ -89,10 +89,10 @@ class Game
     user_input = "Y"
     user_ships = []
 
-
-    # Loop until user_input "N" OR a 2 length ship pushes the total length > board_area / 3
+    # Loop until user_input "N"
     until user_input == "N"
       remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1]}
+
       if remaining_ship_length < 2
         Messages.no_more_room_for_ships
         break
@@ -106,16 +106,14 @@ class Game
       end
 
       Messages.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
-
       ship_length = gets.chomp.to_i
       until (2..remaining_ship_length).include(ship_length)
         Messages.invalid_input
         ship_length = gets.chomp.to_i
       end
 
-
       user_ships << [ship_name, ship_length]
-      user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+
       Messages.succusfully_created_a_ship(ship_name, ship_length)
       user_input = gets.chomp.to_i
 
