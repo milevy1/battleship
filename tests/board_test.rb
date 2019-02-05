@@ -34,7 +34,7 @@ class CellTest < Minitest::Test
   def test_larger_boards_has_correct_number_cells
     cell_hash_large = @board_large.cells
     cell_hash_10 = @board_10.cells
-    
+
     assert_equal 30, cell_hash_large.keys.length
     assert_equal 100, cell_hash_10.keys.length
   end
@@ -45,10 +45,12 @@ class CellTest < Minitest::Test
     cell_hash.values.each { |cell| assert_instance_of Cell, cell}
   end
 
-  def test_large_board_each_cell_is_a_cell
-    cell_hash = @board_large.cells
+  def test_larger_boards_each_cell_is_a_cell
+    cell_hash_large = @board_large.cells
+    cell_hash_10 = @board_10.cells
 
-    cell_hash.values.each { |cell| assert_instance_of Cell, cell}
+    cell_hash_large.values.each { |cell| assert_instance_of Cell, cell}
+    cell_hash_10.values.each { |cell| assert_instance_of Cell, cell}
   end
 
   def test_each_cell_coordinate_in_board
