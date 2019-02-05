@@ -7,6 +7,7 @@ require './lib/messages'
 
 class CellTest < Minitest::Test
 
+ ### Need to test has_unsunk_ship? and fire_upon
   def setup
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
