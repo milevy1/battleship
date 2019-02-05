@@ -31,14 +31,16 @@ class CellTest < Minitest::Test
   def test_cell_attributes_change_after_fired_upon
     @cell.place_ship(@cruiser)
     @cell.fire_upon
-    
+
     assert_equal 2, @cell.ship.health
     assert_equal true, @cell.fired_upon?
   end
 
-  def test_cell_renders_M_after_a_missed_fire
+  def test_cell_starts_render_as_period
     assert_equal ".", @cell.render
+  end
 
+  def test_cell_renders_M_after_a_missed_fire
     @cell.fire_upon
 
     assert_equal "M", @cell.render
