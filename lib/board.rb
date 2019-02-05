@@ -1,5 +1,3 @@
-require 'pry'
-
 class Board
   attr_reader :cells, :rows, :columns, :ships
 
