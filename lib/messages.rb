@@ -3,7 +3,7 @@ class Messages
   def self.welcome_play?
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
-    prompt_user
+    self.prompt_user
   end
 
   def self.would_you_like_to_customize_ships?
@@ -12,7 +12,7 @@ class Messages
     puts "Enter 2 for: Battleship(size 4) & Cruiser(size 3) & Submarine(size 2)."
     puts "Enter 3 for: Carrier(size 5) & Battleship(size 4) & Cruiser(size 3) & Submarine(size 2)."
     puts "Enter 4 to create your own custom ships."
-    prompt_user
+    self.prompt_user
   end
 
   def self. no_more_room_for_ships
@@ -42,9 +42,9 @@ class Messages
   end
   def self.here_are_all_your_ships_you_created(user_ships)
     puts "Here is a list of all your ships you created:"
-    user_ships.each { |ship|
+    user_ships.each do |ship|
       puts "#{ship[0]} of size #{ship[1]}"
-    }
+    end
   end
 
   def self.board_is_too_small_for_ship_selection
@@ -54,7 +54,7 @@ class Messages
   def self.column_choose
     puts "How many columns do you want for your board (4 <= columns <= 26)"
     puts "No input / invalid input defaults to 4"
-    prompt_user
+    self.prompt_user
   end
 
   def self.column_choice(columns)
@@ -68,7 +68,7 @@ class Messages
   def self.row_choose
     puts "How many rows do you want for your board (4 <= rows <= 26)"
     puts "No input / invalid input defaults to 4"
-    prompt_user
+    self.prompt_user
   end
 
   def self.prompt_user
@@ -89,12 +89,12 @@ class Messages
 
   def self.player_ship_placement_input(ship)
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces):"
-    prompt_user
+    self.prompt_user
   end
 
   def self.ship_placement_invalid_coordinates
     puts "Those are invalid coordinates. Please try again:"
-    prompt_user
+    self.prompt_user
   end
 
   def self.computer_board(computer_board)
@@ -109,15 +109,14 @@ class Messages
 
   def self.player_shot_prompt
     puts "Enter the coordinate for your shot:"
-    prompt_user
+    self.prompt_user
   end
-
 
   def self.choose_difficulty
     puts "What difficulty level would you like?"
     puts "Input 'e' for easy"
     puts "Input 'h' for hard"
-    prompt_user
+    self.prompt_user
   end
 
   def self.invalid_input
