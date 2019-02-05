@@ -2,16 +2,18 @@
 
 _Matt Levy, William Peterson_
 
-## Current To-Do List
+## Repo Guide
+- `lib` Containing all classes
+- `tests` Containing all tests
+- `battleship_runner.rb` Running this will play the game.
+
+## Potential Future Additions
 
 - Accept user-input `quit` to end game
   - Create `input` class?
 - Develop `ComputerPlayer`'s' `smart_shot`
 
 - Make 2-Player
-- Add Difficulty - settings to start menu
-
-- Add custom ship options (With list of default ships?)  
 
 - **Refactor Board Placement Methods**
   - Refactor `find_potential_placements` in `ComputerPlayer`
@@ -22,6 +24,3 @@ _Matt Levy, William Peterson_
 - ?Change Cell render method to more-static?
 
 - Create Default inputs for default game
-
-- **Create Tests For Game**  
-  - Test that one more cell `fired_upon?` in each board after each turn
