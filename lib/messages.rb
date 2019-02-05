@@ -28,7 +28,7 @@ class Messages
 
   def self.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
     puts "Enter a length for your #{ship_name}:"
-    puts "Must be greater than 2 and less than #{remaining_ship_length}"
+    puts "Must be greater than 1 but no greater than #{remaining_ship_length}"
     self.prompt_user
   end
 
