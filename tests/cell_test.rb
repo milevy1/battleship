@@ -10,6 +10,10 @@ class CellTest < Minitest::Test
     @cruiser = Ship.new("Cruiser", 3)
   end
 
+  def test_it_exists
+    assert_instance_of Cell, @cell
+  end
+  
   def test_cell_has_initial_attributes
     assert_equal "B4", @cell.coordinate
     assert_nil @cell.ship
