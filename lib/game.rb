@@ -105,7 +105,7 @@ class Game
         ship_name = gets.chomp
       end
 
-      Messages.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
+      Messages.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
 
       ship_length = gets.chomp.to_i
       until (2..remaining_ship_length).include(ship_length)
@@ -116,7 +116,13 @@ class Game
 
       user_ships << [ship_name, ship_length]
       user_ships_total_length = user_ships.sum{ |ship| ship[1]}
-      user_input = Messages.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
+      Messages.succusfully_created_a_ship(ship_name, ship_length)
+      user_input = gets.chomp.to_i
+
+      until ["Y","N"].include?(user_input.upcase)
+        Messages.invalid_input
+        user_input = gets.chomp
+      end
     end
 
     Messages.here_are_all_your_ships_you_created(user_ships)

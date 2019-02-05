@@ -32,23 +32,11 @@ class Messages
     self.prompt_user
   end
 
-  def self.succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
+  def self.succusfully_created_a_ship(ship_name, ship_length)
     puts "You have successfully created a #{ship_name} of length #{ship_length}."
 
-    if (user_ships_total_length + 2) > board_area / 3
-      puts "There is not enough space on the board to create any more ships."
-      return "N"
-    end
-
     puts "Would you like to create another ship? (Enter Y or N)"
-    input = gets.chomp.to_s.capitalize
-
-    if input == "Y" || input == "N"
-      return input
-    else
-      puts "You have entered an invalid selection.  Please try again."
-      return succusfully_created_a_ship(ship_name, ship_length, user_ships_total_length, board_area)
-    end
+    self.prompt_user
   end
 
   def self.here_are_all_your_ships_you_created(user_ships)
