@@ -18,7 +18,6 @@ class ComputerPlayerTest < Minitest::Test
     @comp_player = ComputerPlayer.new(@player_board,
                                       @comp_board)
     @player_board.place(Ship.new("test",3), ["A1","A2","A3"])
-
   end
 
   def test_place_own_ships_places_all_ships
@@ -26,13 +25,11 @@ class ComputerPlayerTest < Minitest::Test
 
     ships_placed = []
 
-    ships_placed = @comp_board.cells.keys.find_all{
-      |coordinate|
-      @comp_board.cells[coordinate].ship != nil}
-
-    ships_placed = ships_placed.map{
-      |coordinate|
-      @comp_board.cells[coordinate].ship.name}
+    @comp_board.cells.values.each do |cell|
+      if cell.ship != nil
+        ships_placed << cell.ship.name
+      end
+    end
 
     assert_equal 2, ships_placed.uniq.length
   end
@@ -40,9 +37,9 @@ class ComputerPlayerTest < Minitest::Test
   def test_placed_ships_occupy_correct_number_cells
     @comp_player.place_own_ships
 
-    ship_cells = @comp_board.cells.keys.count{
-    |coordinate|
-    @comp_board.cells[coordinate].ship != nil}
+    ship_cells = @comp_board.cells.keys.count do |coordinate|
+      @comp_board.cells[coordinate].ship != nil
+    end
 
     assert_equal 5, ship_cells
   end
@@ -51,6 +48,16 @@ class ComputerPlayerTest < Minitest::Test
     shot_coordinate = @comp_player.random_shot
 
     assert @comp_board.valid_coordinate?(shot_coordinate)
+  end
+
+  def test_smart_shot_returns_valid_coordinate_near_hit
+    @player_board.fire_upon(["A1"])
+
+    valid_shot = ["A2","B1"]
+
+    smart_shot_coordinate = @comp_player.smart_shot
+
+    assert valid_shot.include?(smart_shot_coordinate)
   end
 
 
