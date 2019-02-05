@@ -62,24 +62,23 @@ class Game
 
     # Ship lengths must be < 1/3 of the board area to play
     case ship_selection
-    when 1
-      if (board_area / 3) < 5
-        Messages.board_is_too_small_for_ship_selection
-        return select_ship_attributes( rows, columns)
-      end
+    when 1 # Smallest possible board allows these ships
       return [['Cruiser', 3],['Submarine', 2]]
+
     when 2
       if (board_area / 3) < 9
         Messages.board_is_too_small_for_ship_selection
         return select_ship_attributes( rows, columns)
       end
       return [['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
+
     when 3
       if (board_area / 3) < 14
         Messages.board_is_too_small_for_ship_selection
         return select_ship_attributes(rows, columns)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
+      
     when 4
       return user_custom_ships(rows, columns)
     end
