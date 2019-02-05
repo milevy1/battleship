@@ -54,9 +54,8 @@ class CellTest < Minitest::Test
   end
 
   def test_each_cell_coordinate_in_board
-    dim = 4
-    columns = (1..(dim)).to_a
-    rows = (65.chr..(65+dim-1).chr).to_a
+    columns = (1..4).to_a
+    rows = ("A".."D").to_a
 
     cell_hash = @board.cells
 
