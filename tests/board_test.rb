@@ -8,22 +8,21 @@ require './lib/messages'
 class CellTest < Minitest::Test
 
   def setup
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
-    default_ships = [@cruiser, @submarine]
-    @board = Board.new(4,4, default_ships)
-    @board_large = Board.new(5, 6, default_ships)
-    @board_10 = Board.new(10, 10, default_ships)
     @carrier = Ship.new("Carrier", 5)
     @battleship = Ship.new("Battleship", 4)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    default_ships = [@cruiser, @submarine]
+
+    @board = Board.new(4,4, default_ships)
+    @board_large = Board.new(5, 6, default_ships)
+    @board_10 = Board.new(10, 10, default_ships)
   end
 
   def test_it_exists
     assert_instance_of Board, @board
   end
-  
+
   def test_it_has_correct_number_cells
     expected_cells = 16 # @dim * @dim
 
