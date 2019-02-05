@@ -41,12 +41,12 @@ class Game
   def select_difficulty_level
     Messages.choose_difficulty
     player_choice = gets.chomp
-    if ['e','h'].include?(player_choice)
-      return player_choice
-    else
+    until ['E','H'].include?(player_choice.upcase)
       Messages.invalid_input
-      return select_difficulty_level
+      player_choice = gets.chomp
     end
+    return player_choice
+
   end
 
   def select_ship_attributes( rows, columns)
