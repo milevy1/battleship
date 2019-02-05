@@ -88,17 +88,12 @@ class Game
     potential_ship_length = (rows * columns)/3
     user_input = "Y"
     user_ships = []
-
+    remaining_ship_length = potential_ship_length
     # Loop until user_input "N"
     until user_input == "N"
-      remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1]}
 
-      if remaining_ship_length < 2
-        Messages.no_more_room_for_ships
-        break
-      end
 
-      Messages.prompt_user_for_custom_ship_name
+      Messages.prompt_user_for_custom_ship_name(user_ships, remaining_ship_length)
       ship_name  = gets.chomp
       until ship_name != "" && !user_ships.map{|ship| ship[0]}.include?(ship_name)
         Messages.invalid_input
@@ -107,7 +102,7 @@ class Game
 
       Messages.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
       ship_length = gets.chomp.to_i
-      until (2..remaining_ship_length).include(ship_length)
+      until (2..remaining_ship_length).include?(ship_length)
         Messages.invalid_input
         ship_length = gets.chomp.to_i
       end
@@ -115,7 +110,16 @@ class Game
       user_ships << [ship_name, ship_length]
 
       Messages.succusfully_created_a_ship(ship_name, ship_length)
-      user_input = gets.chomp.to_i
+
+      remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1]}
+
+      if remaining_ship_length < 2
+        Messages.no_more_room_for_ships
+        break
+      end
+
+      Messages.another_ship?
+      user_input = gets.chomp
 
       until ["Y","N"].include?(user_input.upcase)
         Messages.invalid_input

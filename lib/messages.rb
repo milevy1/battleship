@@ -34,11 +34,12 @@ class Messages
 
   def self.succusfully_created_a_ship(ship_name, ship_length)
     puts "You have successfully created a #{ship_name} of length #{ship_length}."
-
-    puts "Would you like to create another ship? (Enter Y or N)"
-    self.prompt_user
   end
 
+  def self.another_ship?
+    puts "Want to create another ship"
+    self.prompt_user
+  end
   def self.here_are_all_your_ships_you_created(user_ships)
     puts "Here is a list of all your ships you created:"
     user_ships.each { |ship|
