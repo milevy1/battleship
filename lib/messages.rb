@@ -37,7 +37,7 @@ class Messages
   end
 
   def self.another_ship?
-    puts "Want to create another ship"
+    puts "Want to create another ship? Enter [Y] or [N]."
     self.prompt_user
   end
   def self.here_are_all_your_ships_you_created(user_ships)
