@@ -6,15 +6,12 @@ class ComputerPlayer
   end
 
   def place_own_ships
-
-    @own_board.ships.each{ |ship|
+    @own_board.ships.each do |ship|
       potential_placements = find_potential_placements(ship.length)
 
       until @own_board.place(ship, potential_placements.shuffle.first)
-        # p "Finding Placement for #{ship.name}"
       end
-    }
-
+    end
   end
 
   def random_shot(potential_shot_locations = nil)
