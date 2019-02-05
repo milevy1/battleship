@@ -17,34 +17,34 @@ class ComputerPlayer
   def random_shot(potential_shot_locations = nil)
     if potential_shot_locations == nil
 
-      potential_shot_locations = @opponent_board.cells.keys.find_all{
-        |cell_coord|
+      potential_shot_locations = @opponent_board.cells.keys.find_all do |cell_coord|
         !@opponent_board.cells[cell_coord].fired_upon?
-      }
+      end
     end
 
     return potential_shot_locations.shuffle.first
   end
 
   def smart_shot
-    hit_locations = @opponent_board.cells.keys.find_all{
-      |cell_coord|
+    hit_locations = @opponent_board.cells.keys.find_all do |cell_coord|
       cell = @opponent_board.cells[cell_coord]
       cell.fired_upon? && cell.ship != nil && !cell.ship.sunk?
-    }
+    end
 
     if hit_locations == []
       return random_shot
     end
     potential_shot_locations = []
-    hit_locations.each {|cell_coord|
+    hit_locations.each do |cell_coord|
       adjacent = find_adjacent(cell_coord)
-      potential_shot_locations = potential_shot_locations.concat(adjacent)}
+      potential_shot_locations = potential_shot_locations.concat(adjacent)
+    end
     potential_shot_locations.uniq!
-    potential_shot_locations = potential_shot_locations.find_all{
+    potential_shot_locations = potential_shot_locations.find_all do
       |coordinate|
       !@opponent_board.cells[coordinate].fired_upon?
-    }
+    end
+
     return random_shot(potential_shot_locations)
   end
 
@@ -75,13 +75,11 @@ class ComputerPlayer
   def row_placements(length)
     potential_placements = []
 
-    (1..@own_board.columns).each_cons(length){
-      |column_sequence|
-      ("A"..(("A".ord) +@own_board.rows-1).chr).each { # ("A"..end_letter)
-        |row|
-        potential_placements << column_sequence.map { |column| row + column.to_s}
-      }
-    }
+    (1..@own_board.columns).each_cons(length) do |column_sequence|
+      ("A"..(("A".ord) +@own_board.rows-1).chr).each do |row|
+        potential_placements << column_sequence.map{ |column| row + column.to_s }
+      end
+    end
 
     return potential_placements
   end
@@ -89,13 +87,12 @@ class ComputerPlayer
   def column_placements(length)
     potential_placements = []
 
-    ("A".chr..("A".ord+@own_board.rows-1).chr).each_cons(length){
-      |row_sequence|
-      (1..@own_board.columns).each {
-        |column|
+    ("A".chr..("A".ord+@own_board.rows-1).chr).each_cons(length) do |row_sequence|
+      (1..@own_board.columns).each do |column|
         potential_placements << row_sequence.map { |row| row + column.to_s}
-      }
-    }
+      end
+    end
+
     return potential_placements
   end
 end
