@@ -10,10 +10,15 @@ class CellTest < Minitest::Test
     @cruiser = Ship.new("Cruiser", 3)
   end
 
+  def test_it_exists
+    assert_instance_of Cell, @cell
+  end
+
   def test_cell_has_initial_attributes
     assert_equal "B4", @cell.coordinate
     assert_nil @cell.ship
-    assert_equal true, @cell.empty? # Should be method?
+    assert_equal true, @cell.empty?
+    assert_equal false, @cell.fired_upon?
   end
 
   def test_cell_attributes_change_after_placing_a_ship
@@ -23,26 +28,19 @@ class CellTest < Minitest::Test
     assert_equal false, @cell.empty?
   end
 
-  def test_cell_cannot_place_ship_if_already_occupied_by_a_ship
-    skip
-    # This will be a good test to do later
-    # I'm wondering if this should be in the board_test.rb?
-  end
-
   def test_cell_attributes_change_after_fired_upon
     @cell.place_ship(@cruiser)
-
-    assert_equal false, @cell.fired_upon?
-
     @cell.fire_upon
 
     assert_equal 2, @cell.ship.health
     assert_equal true, @cell.fired_upon?
   end
 
-  def test_cell_renders_M_after_a_missed_fire
+  def test_cell_starts_render_as_period
     assert_equal ".", @cell.render
+  end
 
+  def test_cell_renders_M_after_a_missed_fire
     @cell.fire_upon
 
     assert_equal "M", @cell.render
@@ -57,7 +55,6 @@ class CellTest < Minitest::Test
 
   def test_cell_renders_H_after_fired_upon
     @cell.place_ship(@cruiser)
-
     @cell.fire_upon
 
     assert_equal "H", @cell.render

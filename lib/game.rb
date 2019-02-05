@@ -1,7 +1,5 @@
 class Game
 
-
-
   def main_menu
     Messages.welcome_play?
     play_input = gets.chomp.upcase
@@ -19,7 +17,6 @@ class Game
   end
 
   def setup_game
-
     rows, columns = solicit_board_size
 
     ship_attributes = select_ship_attributes( rows, columns)
@@ -31,11 +28,9 @@ class Game
     @player_board = Board.new(rows, columns, player_ships)
     @computer_board = Board.new(rows, columns, computer_ships)
 
-
     @computer_player = ComputerPlayer.new(@player_board,
                                           @computer_board)
     @computer_player.place_own_ships
-
     @player_board.place_user_ships
 
      play
@@ -49,10 +44,9 @@ class Game
       player_choice = gets.chomp
     end
     return player_choice
-
   end
 
-  def select_ship_attributes( rows, columns)
+  def select_ship_attributes(rows, columns)
     board_area = rows * columns
     Messages.would_you_like_to_customize_ships?
     valid_selections = [1, 2, 3, 4]
@@ -95,15 +89,17 @@ class Game
     # Loop until user_input "N"
     until user_input == "N"
 
-
       Messages.prompt_user_for_custom_ship_name(user_ships, remaining_ship_length)
+
       ship_name  = gets.chomp
+      # Check to make sure name is not empty and not already in use
       until ship_name != "" && !user_ships.map{|ship| ship[0]}.include?(ship_name)
         Messages.invalid_input
         ship_name = gets.chomp
       end
 
       Messages.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
+
       ship_length = gets.chomp.to_i
       until (2..remaining_ship_length).include?(ship_length)
         Messages.invalid_input
@@ -114,7 +110,7 @@ class Game
 
       Messages.succusfully_created_a_ship(ship_name, ship_length)
 
-      remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1]}
+      remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1] }
 
       if remaining_ship_length < 2
         Messages.no_more_room_for_ships
@@ -122,8 +118,8 @@ class Game
       end
 
       Messages.another_ship?
-      user_input = gets.chomp
 
+      user_input = gets.chomp
       until ["Y","N"].include?(user_input.upcase)
         Messages.invalid_input
         user_input = gets.chomp
@@ -165,7 +161,6 @@ class Game
   end
 
   def results
-    ### Implement logic for a tie?
     if !@player_board.has_unsunk_ship? && !@computer_board.has_unsunk_ship?
       Messages.tie_game_message
     elsif @player_board.has_unsunk_ship?
@@ -176,7 +171,6 @@ class Game
   end
 
   def player_shot
-
     loop do
       Messages.player_shot_prompt
       coordinate = gets.chomp.upcase
@@ -200,7 +194,6 @@ class Game
     end
 
     @player_board.fire_upon(coordinate)
-
     return coordinate
   end
 
