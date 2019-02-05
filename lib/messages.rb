@@ -15,12 +15,15 @@ class Messages
     prompt_user
   end
 
-  def self.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
-    puts "You currently have #{user_ships.length} ships of total length #{user_ships_total_length}."
-    puts "The total length of ships must be less than 1/3 the board area (#{board_area} cells)"
+  def self. no_more_room_for_ships
+    puts "That's all the room for ships you have!"
+  end
+
+  def self.prompt_user_for_custom_ship_name(user_ships, remaining_ship_length)
+    puts "You currently have #{user_ships.length}."
+    puts "Additional ships may take up no more than #{remaining_ship_length} cells"
     puts "Enter a name for your ship # #{user_ships.length + 1}:"
     prompt_user
-    return gets.chomp
   end
 
   def self.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)

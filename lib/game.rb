@@ -78,22 +78,34 @@ class Game
         return select_ship_attributes(rows, columns)
       end
       return [['Carrier', 5],['Battleship', 4],['Cruiser', 3],['Submarine', 2]]
-      
+
     when 4
       return user_custom_ships(rows, columns)
     end
-
   end
 
   def user_custom_ships(rows, columns)
-    board_area = rows * columns
+    potential_ship_length = (rows * columns)/3
     user_input = "Y"
     user_ships = []
-    user_ships_total_length = user_ships.sum{ |ship| ship[1]}
+
 
     # Loop until user_input "N" OR a 2 length ship pushes the total length > board_area / 3
-    until user_input == "N" || (user_ships_total_length + 2) > board_area / 3
-      ship_name  = Messages.prompt_user_for_custom_ship_name(user_ships, user_ships_total_length, board_area)
+    until user_input == "N"
+      remaining_ship_length = potential_ship_length - user_ships.sum{ |ship| ship[1]}
+      if remaining_ship_length < 2
+        Messages.no_more_room_for_ships
+        break
+      end
+
+      Messages.prompt_user_for_custom_ship_name
+      ship_name  = gets.chomp
+      until ship_name != "" && !user_ships.map{|ship| ship[0]}.include?(ship_name)
+        Messages.invalid_input
+        ship_name = gets.chomp
+      end
+
+
       ship_length = Messages.prompt_user_for_custom_ship_length(ship_name, user_ships_total_length, board_area, rows, columns)
 
       user_ships << [ship_name, ship_length]
