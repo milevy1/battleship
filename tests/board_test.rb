@@ -80,6 +80,11 @@ class CellTest < Minitest::Test
 
     assert_equal true, @board_large.valid_coordinate?("E1")
     assert_equal false, @board_large.valid_coordinate?("F1")
+
+    assert_equal true, @board_10.valid_coordinate?("J10")
+    assert_equal true, @board_10.valid_coordinate?("A1")
+    assert_equal false, @board_10.valid_coordinate?("K1")
+    assert_equal false, @board_10.valid_coordinate?("A11")
   end
 
   def test_any_coordinates_invalid
