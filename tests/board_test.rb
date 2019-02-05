@@ -119,7 +119,7 @@ class CellTest < Minitest::Test
     assert_equal true, @board.any_coordinates_already_hold_ship(["A3", "B3"])
     assert_equal false, @board.any_coordinates_already_hold_ship(["B4", "C4", "D4"])
   end
-  
+
   def test_valid_placement_requires_cells_to_be_consecutive
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
@@ -155,7 +155,7 @@ class CellTest < Minitest::Test
     assert_equal cell_3.ship, cell_2.ship
   end
 
-  def test_board_renders
+  def test_initial_board_renders
     @board.place(@cruiser, ["A1","A2","A3"])
 
     normal_render = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
@@ -163,7 +163,10 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render, @board.render
     assert_equal debug_render, @board.render(true)
+  end
 
+  def test_shots_board_renders
+    @board.place(@cruiser, ["A1","A2","A3"])
     @board.cells['A1'].fire_upon
     @board.cells['D4'].fire_upon
 
@@ -172,7 +175,12 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render_fire2, @board.render
     assert_equal debug_render_fire2, @board.render(true)
+  end
 
+  def test_sunk_board_renders
+    @board.place(@cruiser, ["A1","A2","A3"])
+    @board.cells['A1'].fire_upon
+    @board.cells['D4'].fire_upon
     @board.cells['A2'].fire_upon
     @board.cells['A3'].fire_upon
 
@@ -183,13 +191,18 @@ class CellTest < Minitest::Test
     assert_equal debug_render_sunk, @board.render(true)
   end
 
-  def test_large_board_renders
+  def test_initial_large_board_render
     @board_large.place(@carrier, ["A1", "A2", "A3", "A4", "A5"])
     normal_render = "  1 2 3 4 5 6 \nA . . . . . . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
     debug_render = "  1 2 3 4 5 6 \nA S S S S S . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
 
     assert_equal normal_render, @board_large.render
     assert_equal debug_render, @board_large.render(true)
+
+  end
+
+  def test_large_board_shot_renders
+    @board_large.place(@carrier, ["A1", "A2", "A3", "A4", "A5"])
 
     @board_large.cells['A1'].fire_upon
     @board_large.cells['A2'].fire_upon
@@ -201,7 +214,15 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render_fire4, @board_large.render
     assert_equal debug_render_fire4, @board_large.render(true)
+  end
 
+  def test_large_board_sunk_renders
+    @board_large.place(@carrier, ["A1", "A2", "A3", "A4", "A5"])
+
+    @board_large.cells['A1'].fire_upon
+    @board_large.cells['A2'].fire_upon
+    @board_large.cells['A3'].fire_upon
+    @board_large.cells['A4'].fire_upon
     @board_large.cells['A5'].fire_upon
 
     normal_render_sunk = "  1 2 3 4 5 6 \nA X X X X X . \nB . . . . . . \nC . . . . . . \nD . . . . . . \nE . . . . . . \n"
@@ -209,6 +230,25 @@ class CellTest < Minitest::Test
 
     assert_equal normal_render_sunk, @board_large.render
     assert_equal debug_render_sunk, @board_large.render(true)
+  end
+
+  def test_double_header_line_board_10
+
+    render_rows =["                    1 \n",
+                  "  1 2 3 4 5 6 7 8 9 0 \n",
+                  "A . . . . . . . . . . \n",
+                  "B . . . . . . . . . . \n",
+                  "C . . . . . . . . . . \n",
+                  "D . . . . . . . . . . \n",
+                  "E . . . . . . . . . . \n",
+                  "F . . . . . . . . . . \n",
+                  "G . . . . . . . . . . \n",
+                  "H . . . . . . . . . . \n",
+                  "I . . . . . . . . . . \n",
+                  "J . . . . . . . . . . \n"]
+    normal_render = render_rows.join
+
+    assert_equal normal_render, @board_10.render
   end
 
 end
