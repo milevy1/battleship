@@ -3,7 +3,7 @@ require 'pry'
 class Board
   attr_reader :cells, :rows, :columns, :ships
 
-  def initialize(rows, columns, ship_list)
+  def initialize(rows=4, columns=4, ship_list=[])
     @rows = rows
     @columns = columns
     @ships = ship_list
