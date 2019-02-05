@@ -108,14 +108,14 @@ class CellTest < Minitest::Test
     assert_equal false, @board.lengths_differ(@cruiser, ["A1", "A2", "A3"])
   end
 
-  def test_valid_placement_requires_cells_to_be_consecutive
-    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
-  end
-
   def test_coordinates_not_consecutive
     assert_equal true, @board.coordinates_not_consecutive(@submarine, ["B1", "D3"])
     assert_equal false, @board.coordinates_not_consecutive(@cruiser, ["C2", "C3", "C4"])
+  end
+
+  def test_valid_placement_requires_cells_to_be_consecutive
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"])
   end
 
   def test_valid_placement_requires_cells_to_be_in_order
@@ -136,9 +136,9 @@ class CellTest < Minitest::Test
 
   def test_one_ship_can_occupy_multiple_cells
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
+    
     assert_equal cell_3.ship, cell_2.ship
   end
 
