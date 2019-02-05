@@ -98,10 +98,13 @@ class Game
         ship_name = gets.chomp
       end
 
-      Messages.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
+      largest_ship_for_board = [rows, columns].max
+      max_ship_length = [remaining_ship_length, largest_ship_for_board].min
 
+      Messages.prompt_user_for_custom_ship_length(ship_name, max_ship_length)
       ship_length = gets.chomp.to_i
-      until (2..remaining_ship_length).include?(ship_length)
+
+      until (2..max_ship_length).include?(ship_length)
         Messages.invalid_input
         ship_length = gets.chomp.to_i
       end
