@@ -20,7 +20,7 @@ class Messages
   end
 
   def self.prompt_user_for_custom_ship_name(user_ships, remaining_ship_length)
-    puts "You currently have #{user_ships.length}."
+    puts "You currently have #{user_ships.length} ships."
     puts "Additional ships may take up no more than #{remaining_ship_length} cells"
     puts "Enter a name for your ship # #{user_ships.length + 1}:"
     self.prompt_user
