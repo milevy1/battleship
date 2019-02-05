@@ -20,7 +20,7 @@ class Messages
   end
 
   def self.prompt_user_for_custom_ship_name(user_ships, remaining_ship_length)
-    puts "You currently have #{user_ships.length}."
+    puts "You currently have #{user_ships.length} ships."
     puts "Additional ships may take up no more than #{remaining_ship_length} cells"
     puts "Enter a name for your ship # #{user_ships.length + 1}:"
     self.prompt_user
@@ -28,7 +28,7 @@ class Messages
 
   def self.prompt_user_for_custom_ship_length(ship_name, remaining_ship_length)
     puts "Enter a length for your #{ship_name}:"
-    puts "Must be greater than 2 and less than #{remaining_ship_length}"
+    puts "Must be greater than 1 but no greater than #{remaining_ship_length}"
     self.prompt_user
   end
 
@@ -37,7 +37,7 @@ class Messages
   end
 
   def self.another_ship?
-    puts "Want to create another ship"
+    puts "Want to create another ship? Enter [Y] or [N]."
     self.prompt_user
   end
   def self.here_are_all_your_ships_you_created(user_ships)
