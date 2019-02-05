@@ -27,9 +27,9 @@ class Board
   def place_user_ships
     Messages.player_ship_placement_intro(@ships, render(true))
     @ships.each do |ship|
-      message.player_ship_placement_input(ship)
+      Messages.player_ship_placement_input(ship)
       while !place(ship, gets.chomp.upcase.split)
-        message.ship_placement_invalid_coordinates
+        Messages.ship_placement_invalid_coordinates
       end
       puts render(true)
     end
