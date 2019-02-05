@@ -24,19 +24,19 @@ class CellTest < Minitest::Test
   end
 
   def test_it_has_correct_number_cells
-    expected_cells = 16 # @dim * @dim
+    expected_cells = 16
 
     cell_hash = @board.cells
 
     assert_equal expected_cells, cell_hash.keys.length
   end
 
-  def test_large_board_has_correct_number_cells
-    expected_cells = 30
-
-    cell_hash = @board_large.cells
-
-    assert_equal expected_cells, cell_hash.keys.length
+  def test_larger_boards_has_correct_number_cells
+    cell_hash_large = @board_large.cells
+    cell_hash_10 = @board_10.cells
+    
+    assert_equal 30, cell_hash_large.keys.length
+    assert_equal 100, cell_hash_10.keys.length
   end
 
   def test_each_cell_is_a_cell
