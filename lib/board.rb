@@ -82,8 +82,7 @@ class Board
     rows_from_input = coordinate_array.map { |coordinate| coordinate[0] }
     columns_from_input = coordinate_array.map { |coordinate| coordinate[1..-1].to_i }
 
-    coordinate_orientation = coordinates_in_row_or_column(coordinate_array,
-                                                          rows_from_input,
+    coordinate_orientation = coordinates_in_row_or_column(rows_from_input,
                                                           columns_from_input)
     return true if coordinate_orientation == false
 
@@ -109,7 +108,7 @@ class Board
     return false
   end
 
-  def coordinates_in_row_or_column(coordinate_array, rows_from_input, columns_from_input)
+  def coordinates_in_row_or_column(rows_from_input, columns_from_input)
     # Test if all in one row or one column
 
     if rows_from_input.uniq.length == 1
