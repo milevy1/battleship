@@ -23,7 +23,7 @@ class ComputerPlayerTest < Minitest::Test
   def test_it_exists
     assert_instance_of ComputerPlayer, @comp_player
   end
-  
+
   def test_place_own_ships_places_all_ships
     @comp_player.place_own_ships
 
@@ -64,10 +64,4 @@ class ComputerPlayerTest < Minitest::Test
     assert valid_shot.include?(smart_shot_coordinate)
   end
 
-
-### Test that ships are placed
-
-### Test Check that number of cells containing ships is combined length of ships
-
-# test one more cell has been fired upon
 end
