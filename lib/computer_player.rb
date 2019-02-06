@@ -49,8 +49,6 @@ class ComputerPlayer
   end
 
   def find_adjacent(cell_coordinate)
-    rows = ("A"..("A".ord-1+@opponent_board.rows).chr).to_a
-    columns = (1..@opponent_board.columns).to_a
 
     coord_row = cell_coordinate[0]
     coord_column = cell_coordinate[1..-1].to_i
