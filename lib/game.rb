@@ -38,10 +38,10 @@ class Game
 
   def select_difficulty_level
     Messages.choose_difficulty
-    player_choice = gets.chomp
-    until ['E','H'].include?(player_choice.upcase)
+    player_choice = gets.chomp.upcase
+    until ['E','H'].include?(player_choice)
       Messages.invalid_input
-      player_choice = gets.chomp
+      player_choice = gets.chomp.upcase
     end
     return player_choice
   end
@@ -122,10 +122,10 @@ class Game
 
       Messages.another_ship?
 
-      user_input = gets.chomp
-      until ["Y","N"].include?(user_input.upcase)
+      user_input = gets.chomp.upcase
+      until ["Y","N"].include?(user_input)
         Messages.invalid_input
-        user_input = gets.chomp
+        user_input = gets.chomp.upcase
       end
     end
 
