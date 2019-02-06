@@ -146,9 +146,5 @@ class Board
     end
 
     return header_row + [board_rows].join
-
   end
-
-
-
 end

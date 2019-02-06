@@ -61,7 +61,6 @@ class ComputerPlayer
           coord_row + (coord_column+1).to_s
           ]
 
-
     return adjacent_coordinates.keep_if{ |coord| @opponent_board.cells.keys.include?(coord)}
   end
 
